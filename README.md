@@ -5,31 +5,13 @@ Welcome to my portfolio repository! This repository showcases my projects, skill
 ## Table of Contents
 
 - [About Me](#about-me)
-- [Projects](#projects)
 - [Skills](#skills)
 - [Contact Me](#contact-me)
 
 ## About Me
 
-Hello! I'm Bima Adam, a passionate web developer from [Your City/Country]. I love building web applications and exploring new technologies. Check out my projects below!
+Hello! I'm Bima Adam, a passionate web developer from Lombok. I love building web applications and exploring new technologies. Check out my projects below!
 
-## Projects
-
-### Project 1: Project Name
-
-Description of the project. Include technologies used and what you learned.
-
-- [Link to Project](#)
-- Screenshots or demo (if applicable)
-
-### Project 2: Project Name
-
-Description of the project. Include technologies used and what you learned.
-
-- [Link to Project](#)
-- Screenshots or demo (if applicable)
-
-... (Add more projects as needed)
 
 ## Skills
 
