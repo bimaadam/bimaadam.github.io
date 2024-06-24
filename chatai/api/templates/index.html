@@ -19,7 +19,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 600px;
+            max-width: 800px; /* Luaskan container */
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -27,30 +27,39 @@
         }
         .chat-box {
             flex: 1;
-            max-height: 400px;
             overflow-y: auto;
             margin-bottom: 20px;
             border: 1px solid #e0e0e0;
             padding: 10px;
             border-radius: 5px;
             background-color: #fafafa;
+            display: flex;
+            flex-direction: column-reverse; /* Menampilkan pesan terbaru di bawah */
         }
         .chat-box p {
             margin: 10px 0;
             padding: 10px;
             border-radius: 10px;
+            max-width: 70%; /* Batas lebar pesan */
+            word-wrap: break-word; /* Memastikan kata-kata panjang terpecah */
         }
         .user-message {
             background-color: #d1e7dd;
-            text-align: right;
+            align-self: flex-end;
         }
         .ai-message {
             background-color: #f8d7da;
+            align-self: flex-start;
         }
         .input-group {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: stretch;
+        }
+        .input-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
         }
         .input-group select,
         .input-group input {
@@ -59,7 +68,6 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             width: 100%;
-            max-width: 500px;
         }
         .input-group select {
             appearance: none;
@@ -67,6 +75,10 @@
             color: white;
             border: none;
             cursor: pointer;
+        }
+        .input-group .button-group {
+            display: flex;
+            justify-content: space-between;
         }
         .input-group button {
             padding: 10px 20px;
@@ -79,19 +91,17 @@
         .input-group button:hover {
             background-color: #0056b3;
         }
+        .dark-mode-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
         footer {
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
             color: #888;
         }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-
         /* Dark mode styles */
         .dark-mode {
             background: #333;
@@ -128,6 +138,9 @@
 <body>
     <div class="chat-container">
         <h2>Chat AI | Bima Adam</h2>
+        <div class="dark-mode-toggle">
+            <button onclick="toggleDarkMode()">Dark Mode</button>
+        </div>
         <div class="chat-box" id="chat-box"></div>
         <div class="input-group">
             <label for="engine">Pilih Model:</label>
@@ -136,11 +149,12 @@
                 <option value="gemini">Gemini</option>
             </select>
             <input type="text" id="query-input" placeholder="Ketik pesanmu ...">
-            <button onclick="sendQuery()">Send</button>
-            <button onclick="toggleDarkMode()">Dark Mode</button>
-            <a href="https://bimaadamrin.my.id">
-            <button onclick="button-home">Home</button>
-            </a>
+            <div class="button-group">
+                <a href="https://bimaadamrin.my.id">
+                    <button type="button">Home</button>
+                </a>
+                <button onclick="sendQuery()">Send</button>
+            </div>
         </div>
         <footer>
             &copy; Development by Bima Adam
@@ -159,11 +173,9 @@
             const userMessage = document.createElement('p');
             userMessage.className = 'user-message';
             userMessage.textContent = query;
-            chatBox.appendChild(userMessage);
-            document.getElementById('query-input').value = '';
+            chatBox.prepend(userMessage); // Menambahkan pesan di atas
 
-            // Scroll to bottom
-            chatBox.scrollTop = chatBox.scrollHeight;
+            document.getElementById('query-input').value = '';
 
             fetch('/query', {
                 method: 'POST',
@@ -177,10 +189,7 @@
                 const aiMessage = document.createElement('p');
                 aiMessage.className = 'ai-message';
                 aiMessage.textContent = data.data;
-                chatBox.appendChild(aiMessage);
-
-                // Scroll to bottom
-                chatBox.scrollTop = chatBox.scrollHeight;
+                chatBox.prepend(aiMessage); // Menambahkan pesan di atas
             })
             .catch(error => console.error('Error:', error));
         }
