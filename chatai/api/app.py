@@ -22,10 +22,10 @@ def query():
 
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raises exception for bad response status
+        response.raise_for_status() 
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
-
+#Bimaadam
 if __name__ == '__main__':
     app.run(debug=True)
