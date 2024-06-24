@@ -14,7 +14,7 @@ def query():
     engine = data.get('engine')
 
     if engine == 'gemini':
-        url = 'https://galihmrd.my.id/bard_ai?query=' + query + '&engine=gemini-advance'
+        url = 'https://galihmrd.my.id/bard_ai?query=' + query + '&engine=gemini'
     elif engine == 'gpt4':
         url = 'https://galihmrd.my.id/bard_ai?query=' + query + '&engine=gpt4'
     else:
