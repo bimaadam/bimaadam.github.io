@@ -5,38 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat AI | Bima Adam</title>
     <style>
+        /* Import Catppuccin Palette */
+        @import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
+
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            background: var(--ctp-mocha-base);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: var(--ctp-mocha-mantle);
         }
         .chat-container {
-            background-color: #ffffff;
-            border-radius: 10px;
+            background-color: var(--ctp-mocha-mauve);
+            border-radius: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 800px; /* Luaskan container */
+            max-width: 1280px; /* Luaskan container */
             padding: 20px;
             display: flex;
             flex-direction: column;
-            height: 80%;
+            height: 90%;
         }
         .chat-box {
             flex: 1;
             overflow-y: auto;
             margin-bottom: 20px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--ctp-mocha-overlay0);
             padding: 10px;
-            border-radius: 5px;
-            background-color: #fafafa;
+            border-radius: 15px;
+            background-color: var(--ctp-mocha-text);
             display: flex;
             flex-direction: column-reverse; /* Menampilkan pesan terbaru di bawah */
         }
-        .chat-box p {
+        .chat-message {
             margin: 10px 0;
             padding: 10px;
             border-radius: 10px;
@@ -44,12 +48,16 @@
             word-wrap: break-word; /* Memastikan kata-kata panjang terpecah */
         }
         .user-message {
-            background-color: #d1e7dd;
+            background-color: var(--ctp-macchiato-lavender);
             align-self: flex-end;
+            color: var(--ctp-macchiato-mantle);
+            border: 2px solid hsla(var(--ctp-mocha-overlay0), 0.75);
         }
         .ai-message {
-            background-color: #f8d7da;
+            background-color: var(--ctp-macchiato-mauve);
             align-self: flex-start;
+            color: var(--ctp-frappe-base);
+            border: 2px solid hsla(var(--ctp-frappe-red-hsl), 0.75);
         }
         .input-group {
             display: flex;
@@ -59,22 +67,25 @@
         .input-group label {
             margin-bottom: 5px;
             font-weight: bold;
-            color: #333;
+            color: var(--ctp-mocha-mantle);
         }
         .input-group select,
         .input-group input {
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
+            border: 1px solid var(--ctp-macchiato-peach);
+            width: auto;
+            background-color: var(--ctp-macchiato-surface2);
+            color: var(--ctp-latte-base);
         }
         .input-group select {
             appearance: none;
-            background-color: #007bff;
-            color: white;
+            background-color: var(--ctp-macchiato-surface2);
+            color: var(--ctp-mocha-text);
             border: none;
             cursor: pointer;
+            width: 30%;
         }
         .input-group .button-group {
             display: flex;
@@ -84,12 +95,12 @@
             padding: 10px 20px;
             border-radius: 5px;
             border: none;
-            background-color: #007bff;
-            color: white;
+            background-color: var(--ctp-macchiato-red);
+            color: var(--ctp-latte-base);
             cursor: pointer;
         }
         .input-group button:hover {
-            background-color: #0056b3;
+            background-color: var(--ctp-mocha-sky);
         }
         .dark-mode-toggle {
             display: flex;
@@ -100,38 +111,47 @@
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
-            color: #888;
+            color: var(--ctp-mocha-overlay2);
+        }
+        .message-sender {
+            font-weight: bold;
+            display: block;
         }
         /* Dark mode styles */
         .dark-mode {
-            background: #333;
-            color: #fff;
+            background: var(--ctp-mocha-crust);
+            color: var(--ctp-mocha-text);
         }
         .dark-mode .chat-container {
-            background-color: #444;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+            background-color: var(--ctp-mocha-base);
+            box-shadow: 0 4px 8px rgba(182, 180, 180, 0.2);
         }
         .dark-mode .chat-box {
-            background-color: #555;
-            border-color: #666;
+            background-color: var(--ctp-mocha-overlay1);
+            border-color: var(--ctp-mocha-overlay0);
         }
-        .dark-mode .user-message {
-            background-color: #3b8053;
-        }
+        .dark-mode .user-message,
         .dark-mode .ai-message {
-            background-color: #b83c30;
+            background-color: var(--ctp-macchiato-overlay0);
+            border-color: var(--ctp-frappe-red);
+        }
+        .dark-mode label {
+            color: var(--ctp-mocha-text);
         }
         .dark-mode .input-group select {
-            background-color: #007bff;
+            background-color: var(--ctp-mocha-mauve);
+            color: var(--ctp-mocha-base);
         }
         .dark-mode .input-group button {
-            background-color: #007bff;
+            background-color: var(--ctp-mocha-mauve);
+            color: var(--ctp-mocha-base);
         }
         .dark-mode .input-group button:hover {
-            background-color: #0056b3;
+            background-color: var(--ctp-mocha-sky);
+            color: var(--ctp-mocha-base);
         }
         .dark-mode footer {
-            color: #ccc;
+            color: var(--ctp-mocha-overlay2);
         }
     </style>
 </head>
@@ -147,6 +167,11 @@
             <select id="engine">
                 <option value="gpt4">GPT-4</option>
                 <option value="gemini">Gemini</option>
+                <option value="gemini-advance">Gemini-Advance</option>
+                <option value="gpt-turbo">GPT TURBO</option>
+                <option value="gpt-3.5">GPT 3.5</option>
+                <option value="simi">SIMI AGAK LAEN 🍷🗿</option>
+                <option value="bing-balanced">BING BALANCE</option>
             </select>
             <input type="text" id="query-input" placeholder="Ketik pesanmu ...">
             <div class="button-group">
@@ -158,6 +183,7 @@
         </div>
         <footer>
             &copy; Development by Bima Adam
+            &copy; Thanks For API Credits galihmrd
         </footer>
     </div>
 
@@ -170,10 +196,19 @@
             if (!query.trim()) return;
 
             // Display user's message
+            const userMessageContainer = document.createElement('div');
+            userMessageContainer.className = 'chat-message user-message';
+
+            const userMessageSender = document.createElement('span');
+            userMessageSender.className = 'message-sender';
+            userMessageSender.textContent = 'You:';
+
             const userMessage = document.createElement('p');
-            userMessage.className = 'user-message';
             userMessage.textContent = query;
-            chatBox.prepend(userMessage); // Menambahkan pesan di atas
+
+            userMessageContainer.appendChild(userMessageSender);
+            userMessageContainer.appendChild(userMessage);
+            chatBox.prepend(userMessageContainer); // Menambahkan pesan di atas
 
             document.getElementById('query-input').value = '';
 
@@ -186,12 +221,35 @@
             })
             .then(response => response.json())
             .then(data => {
+                const aiMessageContainer = document.createElement('div');
+                aiMessageContainer.className = 'chat-message ai-message';
+
+                const aiMessageSender = document.createElement('span');
+                aiMessageSender.className = 'message-sender';
+                aiMessageSender.textContent = `${engine}:`;
+
                 const aiMessage = document.createElement('p');
-                aiMessage.className = 'ai-message';
                 aiMessage.textContent = data.data;
-                chatBox.prepend(aiMessage); // Menambahkan pesan di atas
+
+                aiMessageContainer.appendChild(aiMessageSender);
+                aiMessageContainer.appendChild(aiMessage);
+                chatBox.prepend(aiMessageContainer); // Menambahkan pesan di atas
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                const errorMessageContainer = document.createElement('div');
+                errorMessageContainer.className = 'chat-message ai-message';
+
+                const errorMessageSender = document.createElement('span');
+                errorMessageSender.className = 'message-sender';
+                errorMessageSender.textContent = `${engine}:`;
+
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'An error occurred while processing your request. Please try again later.';
+
+                errorMessageContainer.appendChild(errorMessageSender);
+                errorMessageContainer.appendChild(errorMessage);
+                chatBox.prepend(errorMessageContainer);
+            });
         }
 
         function toggleDarkMode() {
