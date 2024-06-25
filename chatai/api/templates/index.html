@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat AI | Bima Adam</title>
@@ -10,7 +11,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: var(--ctp-mocha-base);
+            background-color: var(--ctp-macchiato-overlay0);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -73,7 +74,7 @@
         .input-group input {
             margin-bottom: 10px;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 30px;
             border: 1px solid var(--ctp-macchiato-peach);
             width: auto;
             background-color: var(--ctp-macchiato-surface2);
@@ -85,7 +86,9 @@
             color: var(--ctp-mocha-text);
             border: none;
             cursor: pointer;
-            width: 30%;
+            max-width: fit-content;
+            border-radius: 15px;
+            text-align: center;
         }
         .input-group .button-group {
             display: flex;
@@ -106,6 +109,10 @@
             display: flex;
             justify-content: flex-end;
             margin-bottom: 10px;
+        }
+            .dark-mode-toggle i {
+                font-size: 30px;
+            
         }
         footer {
             text-align: center;
@@ -159,11 +166,11 @@
     <div class="chat-container">
         <h2>Chat AI | Bima Adam</h2>
         <div class="dark-mode-toggle">
-            <button onclick="toggleDarkMode()">Dark Mode</button>
+            <i class="fa fa-moon" onclick="toggleDarkMode()"></i>
         </div>
         <div class="chat-box" id="chat-box"></div>
         <div class="input-group">
-            <label for="engine">Pilih Model:</label>
+            <label for="engine">Pilih Model:</label> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             <select id="engine">
                 <option value="gpt4">GPT-4</option>
                 <option value="gemini">Gemini</option>
@@ -176,9 +183,9 @@
             <input type="text" id="query-input" placeholder="Ketik pesanmu ...">
             <div class="button-group">
                 <a href="https://bimaadamrin.my.id">
-                    <button type="button">Home</button>
+                    <button class="fa fa-home" type="button"></button>
                 </a>
-                <button onclick="sendQuery()">Send</button>
+                <button class="fa fa-paper-plane" onclick="sendQuery()"></button>
             </div>
         </div>
         <footer>
