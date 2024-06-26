@@ -316,14 +316,14 @@
             }
     
             fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query, engine })
-            })
-            .then(response => response.json())
-            .then(data => {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ query, engine })
+})
+.then(response => response.json())
+.then(data => {
     const aiMessageContainer = document.createElement('div');
     aiMessageContainer.className = 'chat-message ai-message';
 
@@ -335,22 +335,57 @@
 
     if (typeof data.data === 'string') {
         // Jika respons berupa teks biasa
-        const textMessage = document.createElement('p');
-        textMessage.textContent = data.data;
-        aiMessage.appendChild(textMessage);
-    } else if (typeof data.data === 'object' && data.data.hasOwnProperty('url')) {
-        // Jika respons berisi data video, tambahkan elemen video
-        const videoInfo = data.data;
+        const textLines = data.data.split('\n'); // Pisahkan teks menjadi baris
 
-        const videoElement = document.createElement('video');
-        videoElement.controls = true;
-        videoElement.src = videoInfo.url[0];
+        textLines.forEach(line => {
+            const textMessage = document.createElement('p');
+            textMessage.textContent = line;
+            aiMessage.appendChild(textMessage);
+        });
+    } else if (typeof data.data === 'object') {
+        // Cek jenis respons lainnya seperti video atau gambar
+        if (data.data.hasOwnProperty('url')) {
+            const videoInfo = data.data;
+            const videoElement = document.createElement('video');
+            videoElement.controls = true;
+            videoElement.src = videoInfo.url[0];
+            videoElement.style.maxWidth = '100%';
+            videoElement.style.height = 'auto';
+            aiMessage.appendChild(videoElement);
+        }
 
-        // Atur properti CSS untuk mengontrol ukuran video
-        videoElement.style.maxWidth = '100%'; // Lebar maksimal video adalah 100% dari parent
-        videoElement.style.height = 'auto'; // Tinggi video otomatis menyesuaikan aspek ratio
+        if (data.data.hasOwnProperty('imageUrl')) {
+            const imageUrl = data.data.imageUrl;
 
-        aiMessage.appendChild(videoElement);
+            // Konversi format jika perlu
+            const convertedImageUrl = convertToSupportedFormat(imageUrl);
+
+            // Tampilkan gambar
+            const imgElement = document.createElement('img');
+            imgElement.src = convertedImageUrl;
+            imgElement.style.maxWidth = '100%';
+            imgElement.style.height = 'auto';
+            aiMessage.appendChild(imgElement);
+        } else if (data.data.hasOwnProperty('imageUrls')) {
+            // Jika ada beberapa URL gambar, konversi dan tambahkan masing-masing
+            const imageUrls = data.data.imageUrls;
+            imageUrls.forEach(url => {
+                const convertedImageUrl = convertToSupportedFormat(url);
+                const imgElement = document.createElement('img');
+                imgElement.src = convertedImageUrl;
+                imgElement.style.maxWidth = '100%';
+                imgElement.style.height = 'auto';
+                aiMessage.appendChild(imgElement);
+            });
+        } else if (data.data.hasOwnProperty('image')) {
+            // Jika ada URL gambar tunggal dalam format lain, konversi dan tambahkan seperti ini
+            const convertedImageUrl = convertToSupportedFormat(data.data.image);
+            const imgElement = document.createElement('img');
+            imgElement.src = convertedImageUrl;
+            imgElement.style.maxWidth = '100%';
+            imgElement.style.height = 'auto';
+            aiMessage.appendChild(imgElement);
+        }
     } else {
         // Handle other types of responses here
         aiMessage.textContent = JSON.stringify(data);
@@ -366,25 +401,56 @@
         aiMessageContainer.style.opacity = 1;
     }, 50);
 })
+.catch(error => {
+    console.error('Fetch error:', error);
+    const errorMessageContainer = document.createElement('div');
+    errorMessageContainer.className = 'chat-message ai-message';
 
-            .catch(error => {
-                console.error('Fetch error:', error);  // Debug print
-                const errorMessageContainer = document.createElement('div');
-                errorMessageContainer.className = 'chat-message ai-message';
-    
-                const errorMessageSender = document.createElement('span');
-                errorMessageSender.className = 'message-sender';
-                errorMessageSender.textContent = `${engine}:`;
-    
-                const errorMessage = document.createElement('p');
-                errorMessage.textContent = 'An error occurred while processing your request. Please try again later.';
-    
-                errorMessageContainer.appendChild(errorMessageSender);
-                errorMessageContainer.appendChild(errorMessage);
-                chatBox.prepend(errorMessageContainer);
-    
-                errorMessageContainer.scrollIntoView({ behavior: 'smooth' });
-            });
+    const errorMessageSender = document.createElement('span');
+    errorMessageSender.className = 'message-sender';
+    errorMessageSender.textContent = `${engine}:`;
+
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = 'Terjadi kesalahan saat memproses permintaan Anda. Silakan coba lagi nanti.';
+
+    errorMessageContainer.appendChild(errorMessageSender);
+    errorMessageContainer.appendChild(errorMessage);
+    chatBox.prepend(errorMessageContainer);
+
+    errorMessageContainer.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Fungsi untuk mengonversi URL gambar ke format yang didukung
+function convertToSupportedFormat(url) {
+    // Lakukan manipulasi URL sesuai kebutuhan, misal untuk mengubah ukuran atau format
+    // Contoh implementasi untuk mengambil gambar dengan resolusi tertentu
+    const splitUrl = url.split('?'); // Pisahkan bagian query string
+
+    if (splitUrl.length > 1) {
+        const baseUrl = splitUrl[0]; // Ambil bagian URL dasar
+        const query = splitUrl[1]; // Ambil bagian query string
+
+        // Buat objek URL dengan query string
+        const urlObject = new URL(baseUrl);
+        urlObject.search = '?' + query;
+
+        // Ambil parameter resolusi gambar (misal: p1080x1080)
+        const resolutionParam = query.match(/stp=dst-jpg_e35_p(\d+x\d+)/);
+        if (resolutionParam) {
+            const resolution = resolutionParam[1]; // Ambil nilai resolusi
+
+            // Modifikasi query string untuk mengambil gambar dengan resolusi yang diinginkan
+            urlObject.searchParams.set('stp', `dst-jpg_e35_${resolution}`);
+
+            // Kembalikan URL yang sudah dimodifikasi
+            return urlObject.toString();
+        }
+    }
+
+    // Kembalikan URL asli jika tidak ada modifikasi yang perlu dilakukan
+    return url;
+}
+
         }
     
         function toggleDarkMode() {
