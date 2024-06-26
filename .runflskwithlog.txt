@@ -1,0 +1,43 @@
+from flask import Flask, request, jsonify, render_template
+import requests
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/query', methods=['POST'])
+def query():
+    data = request.json
+    query = data.get('query')
+    engine = data.get('engine')
+    supported_engines = [
+        'gemini', 'gpt4', 'gemini-advance', 'gpt-turbo', 
+        'gpt-3.5', 'simi', 'bing-balanced'
+    ]
+
+    if engine not in supported_engines:
+        return jsonify({'error': 'Unknown engine'}), 400
+
+    url = f'https://galihmrd.my.id/bard_ai?query={query}&engine={engine}'
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an HTTPError if the HTTP request returned an unsuccessful status code
+
+        # Log response for debugging
+        print(f"Response from API: {response.json()}")
+
+        return jsonify(response.json())
+    except requests.exceptions.RequestException as e:
+        # Log error for debugging
+        print(f"RequestException: {e}")
+        return jsonify({'error': 'An error occurred while processing your request. Please try again later.'}), 500
+    except ValueError as e:
+        # This catches JSON decoding errors
+        print(f"ValueError: {e}")
+        return jsonify({'error': 'Invalid response from API'}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)

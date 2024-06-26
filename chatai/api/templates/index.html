@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat AI | Bima Adam</title>
     <style>
         /* Import Catppuccin Palette */
         @import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
-
+        @import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
         body {
             font-family: Arial, sans-serif;
             background-color: var(--ctp-macchiato-overlay0);
@@ -18,6 +20,11 @@
             height: 100vh;
             margin: 0;
             color: var(--ctp-mocha-mantle);
+        }
+        .borel-regular {
+        font-family: "Borel", cursive;
+        font-weight: normal;
+        font-style: italic;
         }
         .chat-container {
             background: linear-gradient(to bottom right, var(--ctp-mocha-overlay2), var(--ctp-macchiato-lavender));
@@ -94,7 +101,7 @@
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 30px;
-            border: 1px solid var(--ctp-macchiato-peach);
+            border: 1px solid var(--ctp-macchiato-lavender);
             width: auto;
             background-color: var(--ctp-macchiato-surface2);
             color: var(--ctp-latte-base);
@@ -147,9 +154,10 @@
             background: var(--ctp-mocha-crust);
             color: var(--ctp-mocha-text);
         }
+        /* Dark mode styles */
         .dark-mode .chat-container {
-            background: linear-gradient(to bottom right), var(--ctp-frappe-base), var(--ctp-frappe-crust);
-            box-shadow: 0 4px 8px rgba(182, 180, 180, 0.2);
+        background: linear-gradient(to bottom right, var(--ctp-mocha-base), var(--ctp-frappe-mantle));
+        box-shadow: 0 4px 8px rgba(182, 180, 180, 0.2);
         }
         .dark-mode .chat-box {
             background-color: var(--ctp-mocha-overlay1);
@@ -208,7 +216,7 @@
 </head>
 <body>
     <div class="chat-container">
-        <h2>Chat AI | Bima Adam</h2>
+        <h2 class="borel-regular">Chat AI | Bima Adam.</h2>
         <div class="dark-mode-toggle">
             <i class="fa fa-moon" onclick="toggleDarkMode()"></i>
         </div>
@@ -239,84 +247,94 @@
     </div>
 
     <script>
-        function sendQuery() {
-            const query = document.getElementById('query-input').value;
-            const engine = document.getElementById('engine').value;
-            const chatBox = document.getElementById('chat-box');
+    function sendQuery() {
+        const query = document.getElementById('query-input').value;
+        const engine = document.getElementById('engine').value;
+        const chatBox = document.getElementById('chat-box');
 
-            if (!query.trim()) return;
+        if (!query.trim()) return;
 
-            // Display user's message
-            const userMessageContainer = document.createElement('div');
-            userMessageContainer.className = 'chat-message user-message';
+        // Display user's message
+        const userMessageContainer = document.createElement('div');
+        userMessageContainer.className = 'chat-message user-message';
 
-            const userMessageSender = document.createElement('span');
-            userMessageSender.className = 'message-sender';
-            userMessageSender.textContent = 'You:';
+        const userMessageSender = document.createElement('span');
+        userMessageSender.className = 'message-sender';
+        userMessageSender.textContent = 'You:';
 
-            const userMessage = document.createElement('p');
-            userMessage.textContent = query;
+        const userMessage = document.createElement('p');
+        userMessage.textContent = query;
 
-            userMessageContainer.appendChild(userMessageSender);
-            userMessageContainer.appendChild(userMessage);
-            chatBox.prepend(userMessageContainer); // Menambahkan pesan di atas
+        userMessageContainer.appendChild(userMessageSender);
+        userMessageContainer.appendChild(userMessage);
+        chatBox.prepend(userMessageContainer); // Menambahkan pesan di atas
 
-            document.getElementById('query-input').value = '';
+        document.getElementById('query-input').value = '';
 
-            fetch('/query', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query, engine })
-            })
-            .then(response => response.json())
-            .then(data => {
-    const aiMessageContainer = document.createElement('div');
-    aiMessageContainer.className = 'chat-message ai-message';
+        // Scroll to the latest message
+        userMessageContainer.scrollIntoView({ behavior: 'smooth' });
 
-    const aiMessageSender = document.createElement('span');
-    aiMessageSender.className = 'message-sender';
-    aiMessageSender.textContent = `${engine}:`;
+        fetch('/query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query, engine })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const aiMessageContainer = document.createElement('div');
+            aiMessageContainer.className = 'chat-message ai-message';
 
-    const aiMessage = document.createElement('div');
-    const lines = data.data.split('\n');
-    lines.forEach(line => {
-        const p = document.createElement('p');
-        p.textContent = line;
-        aiMessage.appendChild(p);
-    });
+            const aiMessageSender = document.createElement('span');
+            aiMessageSender.className = 'message-sender';
+            aiMessageSender.textContent = `${engine}:`;
 
-    aiMessageContainer.appendChild(aiMessageSender);
-    aiMessageContainer.appendChild(aiMessage);
-    chatBox.prepend(aiMessageContainer); // Menambahkan pesan di atas
-        // Set opacity to 1 to trigger fade in animation
-        setTimeout(() => {
-        aiMessageContainer.style.opacity = 1;
-    }, 50); // Menunggu sebentar sebelum mengatur opacity
-})
-
-            .catch(error => {
-                const errorMessageContainer = document.createElement('div');
-                errorMessageContainer.className = 'chat-message ai-message';
-
-                const errorMessageSender = document.createElement('span');
-                errorMessageSender.className = 'message-sender';
-                errorMessageSender.textContent = `${engine}:`;
-
-                const errorMessage = document.createElement('p');
-                errorMessage.textContent = 'An error occurred while processing your request. Please try again later.';
-
-                errorMessageContainer.appendChild(errorMessageSender);
-                errorMessageContainer.appendChild(errorMessage);
-                chatBox.prepend(errorMessageContainer);
+            const aiMessage = document.createElement('div');
+            const lines = data.data.split('\n');
+            lines.forEach(line => {
+                const p = document.createElement('p');
+                p.textContent = line;
+                aiMessage.appendChild(p);
             });
-        }
 
-        function toggleDarkMode() {
-            const body = document.body;
-            body.classList.toggle('dark-mode');
-        }
-    </script>
+            aiMessageContainer.appendChild(aiMessageSender);
+            aiMessageContainer.appendChild(aiMessage);
+            chatBox.prepend(aiMessageContainer); // Menambahkan pesan di atas
+            
+            // Scroll to the latest message
+            aiMessageContainer.scrollIntoView({ behavior: 'smooth' });
+
+            // Set opacity to 1 to trigger fade in animation
+            setTimeout(() => {
+                aiMessageContainer.style.opacity = 1;
+            }, 50); // Menunggu sebentar sebelum mengatur opacity
+        })
+        .catch(error => {
+            const errorMessageContainer = document.createElement('div');
+            errorMessageContainer.className = 'chat-message ai-message';
+
+            const errorMessageSender = document.createElement('span');
+            errorMessageSender.className = 'message-sender';
+            errorMessageSender.textContent = `${engine}:`;
+
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = 'An error occurred while processing your request. Please try again later.';
+
+            errorMessageContainer.appendChild(errorMessageSender);
+            errorMessageContainer.appendChild(errorMessage);
+            chatBox.prepend(errorMessageContainer);
+            
+            // Scroll to the latest message
+            errorMessageContainer.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle('dark-mode');
+    }
+</script>
+
 </body>
 </html>
