@@ -20,13 +20,32 @@ def query():
     if engine not in supported_engines:
         return jsonify({'error': 'Unknown engine'}), 400
 
-    url = f'https://galihmrd.my.id/bard_ai?query={query}&engine={engine}'
+    api_url = f'https://galihmrd.my.id/bard_ai?query={query}&engine={engine}'
 
     try:
-        response = requests.get(url)
-        response.raise_for_status() 
+        response = requests.get(api_url)
+        response.raise_for_status()
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")  # Debug print
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/downloader', methods=['POST'])
+def downloader():
+    data = request.json
+    query = data.get('query')
+    
+    if not query:
+        return jsonify({'error': 'No query provided'}), 400
+    
+    api_url = f'https://galihmrd.my.id/api?url={query}'
+    
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+        return jsonify(response.json())
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")  # Debug print
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
