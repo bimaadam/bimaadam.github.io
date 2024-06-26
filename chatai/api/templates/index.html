@@ -25,6 +25,10 @@
         font-family: "Borel", cursive;
         font-weight: normal;
         font-style: italic;
+        font-size: 25px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        display: flex;
         }
         .chat-container {
             background: linear-gradient(to bottom right, var(--ctp-mocha-overlay2), var(--ctp-macchiato-lavender));
@@ -96,13 +100,12 @@
             font-weight: bold;
             color: var(--ctp-mocha-mantle);
         }
-        .input-group select,
         .input-group input {
             margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 30px;
+            padding: 20px;
+            border-radius: 20px;
             border: 1px solid var(--ctp-macchiato-lavender);
-            width: auto;
+            width: 65%;
             background-color: var(--ctp-macchiato-surface2);
             color: var(--ctp-latte-base);
         }
@@ -113,31 +116,51 @@
             border: none;
             cursor: pointer;
             max-width: fit-content;
-            border-radius: 15px;
+            border-radius: 5px;
             text-align: center;
+            padding: 10px;
+            margin-bottom: 10px;
         }
         .input-group .button-group {
             display: flex;
             justify-content: space-between;
         }
-        .input-group button {
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            background-color: var(--ctp-macchiato-red);
-            color: var(--ctp-latte-base);
-            cursor: pointer;
+        .button-input button {
+        padding: 20px 20px;
+        margin-left: 80%;
+        margin-top: -73px;
+        display: flex;
+        border: none;
+        border-radius: 40px;
+        background-color: var(--ctp-frappe-text);
         }
+        .button-input i {
+            font-size: 24px;
+        } 
         .input-group button:hover {
             background-color: var(--ctp-mocha-sky);
         }
         .dark-mode-toggle {
             display: flex;
             justify-content: flex-end;
+            margin-top: -65px;
             margin-bottom: 10px;
+            margin-right: 10px;
+        }
+        .dark-mode-toggle button {
+            color: var(--ctp-frappe-text);
+            background-color: var(--ctp-frappe-mantle);
+            margin-top: -10px;
+            border-radius: 10px;
+            margin-left: 5px;
+            border: none;
         }
         .dark-mode-toggle i {
-            font-size: 30px;
+            font-size: 20px;
+        }
+        .fa-home {
+            font-size: 13px;
+            border: none;
         }
         footer {
             text-align: center;
@@ -216,9 +239,13 @@
 </head>
 <body>
     <div class="chat-container">
-        <h2 class="borel-regular">Chat AI | Bima Adam.</h2>
+        <h2 class="borel-regular">Chat AI.</h2>
         <div class="dark-mode-toggle">
-            <i class="fa fa-moon" onclick="toggleDarkMode()"></i>
+            <button onclick="toggleDarkMode()">
+            <i class="fa fa-moon"></i>
+        </button>
+        <button class="fa fa-home" type="button" onclick="location.href='https://bimaadamrin.my.id'">
+        </button>        
         </div>
         <div class="chat-box" id="chat-box"></div>
         <div class="input-group">
@@ -233,11 +260,10 @@
                 <option value="bing-balanced">BING BALANCE</option>
             </select>
             <input type="text" id="query-input" placeholder="Ketik pesanmu ...">
-            <div class="button-group">
-                <a href="https://bimaadamrin.my.id">
-                    <button class="fa fa-home" type="button"></button>
-                </a>
-                <button class="fa fa-paper-plane" onclick="sendQuery()"></button>
+            <div class="button-input">
+                <button onclick="sendQuery()">
+                <i class="fa fa-paper-plane"></i>
+                </button>
             </div>
         </div>
         <footer>
