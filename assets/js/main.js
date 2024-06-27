@@ -5,23 +5,7 @@ Bimaadam
   document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
       document.getElementById('splash-screen').classList.add('hidden');
-    }, 3000); // 3 seconds delay
-
-    // Add event listeners to enable interaction after splash screen hides
-    document.querySelectorAll('.nav-menu a').forEach(function(elem) {
-      elem.addEventListener('click', function(event) {
-        // Prevent default action (e.g., following link)
-        event.preventDefault();
-        
-        // Optionally, hide splash screen on first interaction with any link
-        document.getElementById('splash-screen').classList.add('hidden');
-        
-        // Optionally, navigate to the link after hiding splash screen
-        setTimeout(function() {
-          window.location.href = event.target.href;
-        }, 1000); // Delay to allow splash screen to fade out (adjust timing as needed)
-      });
-    });
+    }, 3000); // Jeda 3 detik sebelum menyembunyikan splash screen
   });
 
 !(function($) {
