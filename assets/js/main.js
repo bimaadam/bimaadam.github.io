@@ -1,6 +1,12 @@
 /**
 Bimaadam
+/*SPLASHSCREENANIMASI
 */
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    document.getElementById('splash-screen').classList.add('hidden');
+  }, 3000); // 3 seconds delay
+});
 !(function($) {
   "use strict";
 
