@@ -31,15 +31,15 @@
         display: flex;
         }
         .chat-container {
-            background: linear-gradient(to bottom right, var(--ctp-mocha-overlay2), var(--ctp-macchiato-lavender));
-            border-radius: 30px;
+            background: linear-gradient(to bottom right, var(--ctp-latte-base), var(--ctp-latte-surface1));
+            border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 1280px; /* Luaskan container */
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
-            height: 90%;
+            height: 95%;
         }
         .chat-box {
             flex: 1;
@@ -47,7 +47,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--ctp-mocha-overlay0);
             padding: 10px;
-            border-radius: 15px;
+            border-radius: 7px;
             background-color: var(--ctp-mocha-text);
             display: flex;
             flex-direction: column-reverse; /* Menampilkan pesan terbaru di bawah */
@@ -67,27 +67,23 @@
             animation: fadeIn 0.5s ease-out;
         }
         .ai-message {
-            background-color: var(--ctp-macchiato-mauve);
-            align-self: flex-start;
-            color: var(--ctp-frappe-base);
-            border: 2px solid hsla(var(--ctp-frappe-red-hsl), 0.75);
-        }
-        .ai-message {
-        background-color: var(--ctp-macchiato-mauve);
+        background-color: var(--ctp-macchiato-teal);
         align-self: flex-start;
         color: var(--ctp-frappe-base);
         border: 2px solid hsla(var(--ctp-frappe-red-hsl), 0.75);
         animation: fadeIn 0.5s ease-in-out; /* Menggunakan animasi fadeIn */
         opacity: 0; /* Mulai dengan opasitas 0 */
-        display: flex;
         flex-direction: column;
         align-items: flex-start; /* Sesuaikan dengan kebutuhan layout */
-    }
+        }
+        .dark-mode .ai-message {
+            color: var(--ctp-macchiato-text);
+        }
 
-.ai-message video {
-    width: auto; /* Video mengisi lebar maksimal container */
-    height: auto; /* Tinggi video menyesuaikan aspek ratio */
-    max-width: 40%; /* Atur lebar maksimal jika diperlukan */
+        .ai-message video {
+        width: auto; /* Video mengisi lebar maksimal container */
+        height: auto; /* Tinggi video menyesuaikan aspek ratio */
+        max-width: 40%; /* Atur lebar maksimal jika diperlukan */
 }
 
 
@@ -116,13 +112,13 @@
             border-radius: 20px;
             border: 1px solid var(--ctp-macchiato-lavender);
             width: 65%;
-            background-color: var(--ctp-macchiato-surface2);
-            color: var(--ctp-latte-base);
+            background-color: var(--ctp-latte-base);
+            color: var(--ctp-latte-text);
         }
         .input-group select {
             appearance: none;
-            background-color: var(--ctp-macchiato-surface2);
-            color: var(--ctp-mocha-text);
+            background-color: var(--ctp-frappe-base);
+            color: var(--ctp-latte-mantle);
             border: none;
             cursor: pointer;
             max-width: fit-content;
@@ -138,15 +134,19 @@
         .button-input button {
         padding: 20px 20px;
         margin-left: 80%;
-        margin-top: -73px;
+        margin-top: -68px;
         display: flex;
         border: none;
-        border-radius: 40px;
-        background-color: var(--ctp-frappe-text);
+        border-radius: 20px;
+        background-color: var(--ctp-frappe-base);
         }
         .button-input i {
-            font-size: 24px;
-        } 
+            font-size: 17px;
+            color: var(--ctp-frappe-text);
+        }
+        .dark-mode .button-input i {
+            color: var(--ctp-frappe-crust);
+        }
         .input-group button:hover {
             background-color: var(--ctp-mocha-sky);
         }
@@ -161,7 +161,7 @@
             color: var(--ctp-frappe-text);
             background-color: var(--ctp-frappe-mantle);
             margin-top: -10px;
-            border-radius: 10px;
+            border-radius: 5px;
             margin-left: 5px;
             border: none;
         }
@@ -176,7 +176,7 @@
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
-            color: var(--ctp-mocha-overlay2);
+            color: var(--ctp-mocha-base);
         }
         .message-sender {
             font-weight: bold;
@@ -196,20 +196,22 @@
             background-color: var(--ctp-mocha-overlay1);
             border-color: var(--ctp-mocha-overlay0);
         }
-        .dark-mode .user-message,
+        .dark-mode .user-message {
+            background-color: var(--ctp-macchiato-subtext0);
+        }
         .dark-mode .ai-message {
-            background-color: var(--ctp-macchiato-overlay0);
-            border-color: var(--ctp-frappe-red);
+            background-color: var(--ctp-macchiato-surface1);
+            border: none;
         }
         .dark-mode label {
             color: var(--ctp-mocha-text);
         }
         .dark-mode .input-group select {
-            background-color: var(--ctp-mocha-mauve);
+            background-color: var(--ctp-mocha-subtext1);
             color: var(--ctp-mocha-base);
         }
         .dark-mode .input-group button {
-            background-color: var(--ctp-mocha-mauve);
+            background-color: var(--ctp-mocha-subtext1);
             color: var(--ctp-mocha-base);
         }
         .dark-mode .input-group button:hover {
@@ -316,14 +318,14 @@
             }
     
             fetch(endpoint, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
     },
     body: JSON.stringify({ query, engine })
 })
-.then(response => response.json())
-.then(data => {
+    .then(response => response.json())
+    .then(data => {
     const aiMessageContainer = document.createElement('div');
     aiMessageContainer.className = 'chat-message ai-message';
 
@@ -377,7 +379,7 @@
                 imgElement.style.height = 'auto';
                 aiMessage.appendChild(imgElement);
             });
-        } else if (data.data.hasOwnProperty('image')) {
+            } else if (data.data.hasOwnProperty('image')) {
             // Jika ada URL gambar tunggal dalam format lain, konversi dan tambahkan seperti ini
             const convertedImageUrl = convertToSupportedFormat(data.data.image);
             const imgElement = document.createElement('img');
