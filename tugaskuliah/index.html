@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tugas Kuliah | Bima Adam</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Style for the splash screen */
+    #splash {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #010e1b; /* Background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Ensure it is above all other content */
+      color: white;
+      font-family: "Open Sans", sans-serif;
+      opacity: 1;
+      transition: opacity 1s ease-out; /* Transition for fade-out effect */
+    }
+
+    /* Hide the main content initially */
+    #main-content {
+      display: none;
+    }
+
+    /* Additional styling for "Coming Soon" text */
+    #splash h1 {
+      font-size: 2em;
+    }
+
+    /* Centering content */
+    .center-content {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash screen -->
+  <div id="splash">
+    <h1>Coming Soon</h1>
+  </div>
+
+  <!-- Main content -->
+  <div id="main-content" class="text-center center-content">
+    <div>
+      <h1>Coming Soon Assignments</h1>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
+        <a class="navbar-brand" href="#">Menu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Assignments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    // Hide the splash screen and show the main content after a delay
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        // Add class to trigger fade-out
+        document.getElementById('splash').style.opacity = '0';
+        setTimeout(function() {
+          // Hide splash screen and show main content after fade-out
+          document.getElementById('splash').style.display = 'none';
+          document.getElementById('main-content').style.display = 'flex';
+        }, 1000); // Match the duration of the fade-out transition
+      }, 3000); // Adjust the timeout as needed (3000ms = 3 seconds)
+    });
+  </script>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
