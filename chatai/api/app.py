@@ -20,7 +20,7 @@ def query():
     if engine not in supported_engines:
         return jsonify({'error': 'Unknown engine'}), 400
 
-    api_url = f'https://galihmrd.my.id/bard_ai?query={query}&engine={engine}'
+    api_url = f'https://ai.galihmrd.my.id/bard_ai?query={query}&engine={engine}'
 
     try:
         response = requests.get(api_url)
@@ -38,7 +38,7 @@ def downloader():
     if not query:
         return jsonify({'error': 'No query provided'}), 400
     
-    api_url = f'https://galihmrd.my.id/api?url={query}'
+    api_url = f'https://ai.galihmrd.my.id/api?url={query}'
     
     try:
         response = requests.get(api_url)
