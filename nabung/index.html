@@ -51,6 +51,21 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db = getFirestore(app);
+
+        window.login = function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('readonly-section').style.display = 'block';
+                })
+                .catch((error) => {
+                    console.error("Error signing in: ", error);
+                    alert("Email atau password salah!");
+                });
+        };
     
         async function loadSession() {
             const docRef = doc(db, 'savings', 'progress');
