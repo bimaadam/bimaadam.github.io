@@ -173,18 +173,23 @@
         const correctPassword = "ririnbima123"; // Replace with your desired password
     
         async function loadSession() {
-            const docRef = doc(db, "savings", "progress");
-            const docSnap = await getDoc(docRef);
+            try {
+                const docRef = doc(db, "savings", "progress");
+                const docSnap = await getDoc(docRef);
     
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                progress = data.amount;
-                const maxNominal = data.maxAmount;
-                const progressPercentage = (progress / maxNominal) * 100;
-                document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
-                document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
-                document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
-                document.getElementById('maxNominal').value = formatNumber(maxNominal);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    progress = data.amount;
+                    const maxNominal = data.maxAmount;
+                    const progressPercentage = (progress / maxNominal) * 100;
+                    document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
+                    document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
+                    document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
+                    document.getElementById('maxNominal').value = formatNumber(maxNominal);
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
+                alert("Gagal memuat data. Periksa koneksi internet Anda.");
             }
         }
     
@@ -192,7 +197,7 @@
             let nominal = parseFloat(unformatNumber(document.getElementById('nominal').value));
             const currency = document.getElementById('currency').value;
             const maxNominal = parseFloat(unformatNumber(document.getElementById('maxNominal').value));
-            
+    
             if (currency === "USD") {
                 nominal *= conversionRate;
             }
@@ -250,7 +255,10 @@
         }
     
         window.onload = () => {
-            loadSession();
+            loadSession().catch(error => {
+                console.error("Error loading session: ", error);
+                alert("Gagal memuat sesi. Periksa koneksi internet Anda.");
+            });
             setGreetingAndNightMode();
         };
     
@@ -262,7 +270,7 @@
             return number.replace(/[^\d]/g, "");
         }
     </script>
-
+    
 
 </body>
 </html>
