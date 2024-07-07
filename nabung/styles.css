@@ -108,19 +108,3 @@ footer {
 .night-mode footer {
     color: #17a2b8;
 }
-#savings-info {
-    margin-top: 20px;
-    text-align: center;
-}
-
-#savings-info h3 {
-    color: #007bff;
-    font-size: 1.2em;
-}
-
-#savings-info p {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #28a745;
-    margin-top: 10px;
-}
