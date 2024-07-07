@@ -111,37 +111,31 @@
     </style>
 </head>
 <body>
-    <div class="container" id="container">
+    <div id="login-form">
         <h1>Nabung ke Lombok</h1>
-        <div class="greeting" id="greeting"></div>
-        <div class="login-form" id="login-form">
-            <input type="password" id="password" placeholder="Masukkan password" />
-            <button class="btn" onclick="login()">Login</button>
+        <input type="password" id="password" placeholder="Enter password">
+        <button onclick="login()">Login</button>
+    </div>
+    <div id="readonly-section" style="display: none;">
+        <div id="greeting"></div>
+        <input type="text" id="nominal" placeholder="Enter amount">
+        <select id="currency">
+            <option value="IDR">IDR</option>
+            <option value="USD">USD</option>
+        </select>
+        <input type="text" id="maxNominal" placeholder="Enter max amount">
+        <button onclick="nabung()">Nabung</button>
+        <div id="progress-bar">
+            <div id="progress-bar-inner" style="width: 0%;"></div>
         </div>
-        <div class="readonly" id="readonly-section" style="display: none;">
-            <input type="text" id="nominal" placeholder="Masukkan nominal" oninput="formatAndUpdateNominal()" onblur="formatInput(this)" />
-            <select id="currency" onchange="updateFormattedNominal()">
-                <option value="IDR">IDR</option>
-                <option value="USD">USD</option>
-            </select>
-            <input type="text" id="formattedNominal" placeholder="Nominal dengan format" readonly />
-            <input type="text" id="maxNominal" placeholder="Masukkan nominal maksimal" oninput="formatInput(this)" onblur="formatInput(this)" />
-            <button class="btn" onclick="nabung()">Nabung</button>
-        </div>
-        <div class="progress-bar">
-            <div class="progress-bar-inner" id="progress-bar-inner">0%</div>
-        </div>
-        <div class="progress-amount" id="progress-amount">Terkumpul: 0 IDR</div>
-        <div class="footer">
-            © 2024 with love by Bima Adam Nugraha & Ririn Setiawati
-        </div>
+        <div id="progress-amount">Terkumpul: 0 IDR</div>
+        <div>© 2024 with love by Bima Adam Nugraha & Ririn Setiawati</div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-    
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyBVBaxBBFWB7gBO3YBK5a3nIW3rKL0JOxY",
             authDomain: "tabunganbima-e187b.firebaseapp.com",
@@ -151,53 +145,45 @@
             appId: "1:225415384252:web:d438a5bbafc8c901f694b9",
             measurementId: "G-MS0XPE8HN2"
         };
-    
+
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const db = getFirestore(app);
-    
-        let progress = 0;
         const conversionRate = 15000;
         const correctPassword = "ririnbima123";
-    
+        let progress = 0;
+
         async function loadSession() {
-            try {
-                const docRef = doc(db, "savings", "progress");
-                const docSnap = await getDoc(docRef);
-    
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    progress = data.amount;
-                    const maxNominal = data.maxAmount;
-                    const progressPercentage = (progress / maxNominal) * 100;
-                    document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
-                    document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
-                    document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
-                    document.getElementById('maxNominal').value = formatNumber(maxNominal);
-                }
-            } catch (error) {
-                console.error("Error getting document:", error);
-                alert("Gagal memuat data. Periksa koneksi internet Anda.");
+            const docRef = doc(db, 'savings', 'progress');
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                progress = data.amount;
+                const maxNominal = data.maxAmount;
+                const progressPercentage = (progress / maxNominal) * 100;
+                document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
+                document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
+                document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
+                document.getElementById('maxNominal').value = formatNumber(maxNominal);
             }
         }
-    
+
         async function nabung() {
             let nominal = parseFloat(unformatNumber(document.getElementById('nominal').value));
             const currency = document.getElementById('currency').value;
             const maxNominal = parseFloat(unformatNumber(document.getElementById('maxNominal').value));
-    
+            
             if (currency === "USD") {
                 nominal *= conversionRate;
             }
-    
+
             if (isNaN(nominal) || isNaN(maxNominal) || nominal <= 0 || maxNominal <= 0) {
                 alert("Masukkan nominal dan nominal maksimal yang valid.");
                 return;
             }
-    
+
             if (progress + nominal <= maxNominal) {
                 progress += nominal;
-                await setDoc(doc(db, "savings", "progress"), {
+                await setDoc(doc(db, 'savings', 'progress'), {
                     amount: progress,
                     maxAmount: maxNominal
                 });
@@ -210,27 +196,23 @@
                 alert("Nominal tabungan melebihi batas maksimal.");
             }
         }
-    
+
         function login() {
             const password = document.getElementById('password').value;
             if (password === correctPassword) {
                 document.getElementById('login-form').style.display = 'none';
                 document.getElementById('readonly-section').style.display = 'block';
-                loadSession().catch(error => {
-                    console.error("Error loading session: ", error);
-                    alert("Gagal memuat sesi. Periksa koneksi internet Anda.");
-                });
             } else {
                 alert("Password salah!");
             }
         }
-    
+
         function setGreetingAndNightMode() {
             const now = new Date();
             const hours = now.getHours();
             const greetingElement = document.getElementById('greeting');
             let greetingText = "";
-    
+
             if (hours >= 5 && hours < 12) {
                 greetingText = "Selamat Pagi";
             } else if (hours >= 12 && hours < 15) {
@@ -242,27 +224,22 @@
                 document.body.classList.add('night-mode');
                 document.getElementById('container').classList.add('night-mode');
             }
-    
+
             greetingElement.textContent = greetingText;
         }
-    
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function unformatNumber(num) {
+            return num.replace(/\./g, "");
+        }
+
         window.onload = () => {
-            loadSession().catch(error => {
-                console.error("Error loading session: ", error);
-                alert("Gagal memuat sesi. Periksa koneksi internet Anda.");
-            });
+            loadSession();
             setGreetingAndNightMode();
         };
-    
-        function formatNumber(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-    
-        function unformatNumber(number) {
-            return number.replace(/[^\d]/g, "");
-        }
     </script>
-    
-
 </body>
 </html>
