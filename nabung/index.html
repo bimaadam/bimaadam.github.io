@@ -11,9 +11,9 @@
         <h1>Nabung ke Lombok</h1>
         <div id="greeting"></div>
         <div id="login-form">
-            <input type="text" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <button onclick="login()">Login</button>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="button" onclick="login()">Login</button>
         </div>
         <div id="readonly-section" style="display:none;">
             <select id="currency">
@@ -31,10 +31,12 @@
         <footer>© 2024 with love by Bima Adam Nugraha & Ririn Setiawati</footer>
     </div>
     <script type="module">
+        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-
+    
+        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBVBaxBBFWB7gBO3YBK5a3nIW3rKL0JOxY",
             authDomain: "tabunganbima-e187b.firebaseapp.com",
@@ -44,46 +46,55 @@
             appId: "1:225415384252:web:d438a5bbafc8c901f694b9",
             measurementId: "G-MS0XPE8HN2"
         };
-
+    
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        const auth = getAuth();
         const db = getFirestore(app);
-
-        let progress = 0;
-        const conversionRate = 15000;
-
+    
         async function loadSession() {
-            const docRef = doc(db, "savings", "progress");
+            const docRef = doc(db, 'savings', 'progress');
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const data = docSnap.data();
-                progress = data.amount;
+                const progress = data.amount;
                 const maxNominal = data.maxAmount;
                 const progressPercentage = (progress / maxNominal) * 100;
                 document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
                 document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
                 document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
                 document.getElementById('maxNominal').value = formatNumber(maxNominal);
+            } else {
+                console.log("No such document!");
             }
         }
-
+    
         async function nabung() {
             let nominal = parseFloat(unformatNumber(document.getElementById('nominal').value));
             const currency = document.getElementById('currency').value;
             const maxNominal = parseFloat(unformatNumber(document.getElementById('maxNominal').value));
-
+    
             if (currency === "USD") {
                 nominal *= conversionRate;
             }
-
+    
             if (isNaN(nominal) || isNaN(maxNominal) || nominal <= 0 || maxNominal <= 0) {
                 alert("Masukkan nominal dan nominal maksimal yang valid.");
                 return;
             }
-
+    
+            const docRef = doc(db, 'savings', 'progress');
+            const docSnap = await getDoc(docRef);
+            let progress = 0;
+    
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                progress = data.amount;
+            }
+    
             if (progress + nominal <= maxNominal) {
                 progress += nominal;
-                await setDoc(doc(db, "savings", "progress"), {
+                await setDoc(docRef, {
                     amount: progress,
                     maxAmount: maxNominal
                 });
@@ -96,26 +107,28 @@
                 alert("Nominal tabungan melebihi batas maksimal.");
             }
         }
-
+    
         function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+    
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     document.getElementById('login-form').style.display = 'none';
                     document.getElementById('readonly-section').style.display = 'block';
                 })
                 .catch((error) => {
-                    alert("Login gagal: " + error.message);
+                    console.error("Error signing in: ", error);
+                    alert("Email atau password salah!");
                 });
         }
-
+    
         function setGreetingAndNightMode() {
             const now = new Date();
             const hours = now.getHours();
             const greetingElement = document.getElementById('greeting');
             let greetingText = "";
-
+    
             if (hours >= 5 && hours < 12) {
                 greetingText = "Selamat Pagi";
             } else if (hours >= 12 && hours < 15) {
@@ -127,22 +140,15 @@
                 document.body.classList.add('night-mode');
                 document.getElementById('container').classList.add('night-mode');
             }
-
+    
             greetingElement.textContent = greetingText;
         }
-
-        function formatNumber(number) {
-            return number.toLocaleString('id-ID');
-        }
-
-        function unformatNumber(number) {
-            return number.replace(/[^\d.-]/g, '');
-        }
-
+    
         window.onload = () => {
             loadSession();
             setGreetingAndNightMode();
         };
     </script>
+    
 </body>
 </html>
