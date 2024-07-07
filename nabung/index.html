@@ -14,10 +14,16 @@
             height: 100vh;
             margin: 0;
             background: #f0f4f8;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.night-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
         }
 
         h1 {
-            color: #333;
+            color: inherit;
             border-bottom: 2px solid #ddd;
             padding-bottom: 10px;
         }
@@ -30,6 +36,12 @@
             text-align: center;
             max-width: 400px;
             width: 100%;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container.night-mode {
+            background: #34495e;
+            color: #ecf0f1;
         }
 
         .btn {
@@ -70,7 +82,7 @@
         .progress-amount {
             margin-top: 10px;
             font-size: 18px;
-            color: #333;
+            color: inherit;
         }
 
         input[type="text"] {
@@ -94,11 +106,23 @@
         .login-form, .readonly {
             margin-top: 20px;
         }
+
+        .greeting {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <h1>Nabung ke Lombok</h1>
+        <div class="greeting" id="greeting"></div>
         <div class="login-form" id="login-form">
             <input type="password" id="password" placeholder="Masukkan password" />
             <button class="btn" onclick="login()">Login</button>
@@ -117,97 +141,118 @@
             <div class="progress-bar-inner" id="progress-bar-inner">0%</div>
         </div>
         <div class="progress-amount" id="progress-amount">Terkumpul: 0 IDR</div>
+        <div class="footer">
+            © 2024 with love by Bima Adam Nugraha & Ririn Setiawati
+        </div>
     </div>
 
-    <script>
-        let progress = 0;
-        const conversionRate = 15000; // Example conversion rate from USD to IDR
-        const correctPassword = "ririnbima123"; 
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-        function formatNumber(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyBVBaxBBFWB7gBO3YBK5a3nIW3rKL0JOxY",
+        authDomain: "tabunganbima-e187b.firebaseapp.com",
+        projectId: "tabunganbima-e187b",
+        storageBucket: "tabunganbima-e187b.appspot.com",
+        messagingSenderId: "225415384252",
+        appId: "1:225415384252:web:d438a5bbafc8c901f694b9",
+        measurementId: "G-MS0XPE8HN2"
+    };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+    let progress = 0;
+    const conversionRate = 15000; // Example conversion rate from USD to IDR
+    const correctPassword = "ririnbima123"; // Replace with your desired password
+
+    async function loadSession() {
+        const doc = await db.collection('savings').doc('progress').get();
+        if (doc.exists) {
+            const data = doc.data();
+            progress = data.amount;
+            const maxNominal = data.maxAmount;
+            const progressPercentage = (progress / maxNominal) * 100;
+            document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
+            document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
+            document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
+            document.getElementById('maxNominal').value = formatNumber(maxNominal);
+        }
+    }
+
+    async function nabung() {
+        let nominal = parseFloat(unformatNumber(document.getElementById('nominal').value));
+        const currency = document.getElementById('currency').value;
+        const maxNominal = parseFloat(unformatNumber(document.getElementById('maxNominal').value));
+        
+        if (currency === "USD") {
+            nominal *= conversionRate;
         }
 
-        function unformatNumber(number) {
-            return number.replace(/[^\d]/g, "");
+        if (isNaN(nominal) || isNaN(maxNominal) || nominal <= 0 || maxNominal <= 0) {
+            alert("Masukkan nominal dan nominal maksimal yang valid.");
+            return;
         }
 
-        function formatInput(input) {
-            const value = unformatNumber(input.value);
-            input.value = formatNumber(value);
-            updateFormattedNominal();
+        if (progress + nominal <= maxNominal) {
+            progress += nominal;
+            await db.collection('savings').doc('progress').set({
+                amount: progress,
+                maxAmount: maxNominal
+            });
+            const progressPercentage = (progress / maxNominal) * 100;
+            document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
+            document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
+            document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
+            alert(`Menabung ${formatNumber(nominal)} IDR`);
+        } else {
+            alert("Nominal tabungan melebihi batas maksimal.");
+        }
+    }
+
+    function login() {
+        const password = document.getElementById('password').value;
+        if (password === correctPassword) {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('readonly-section').style.display = 'block';
+        } else {
+            alert("Password salah!");
+        }
+    }
+
+    function setGreetingAndNightMode() {
+        const now = new Date();
+        const hours = now.getHours();
+        const greetingElement = document.getElementById('greeting');
+        let greetingText = "";
+
+        if (hours >= 5 && hours < 12) {
+            greetingText = "Selamat Pagi";
+        } else if (hours >= 12 && hours < 15) {
+            greetingText = "Selamat Siang";
+        } else if (hours >= 15 && hours < 18) {
+            greetingText = "Selamat Sore";
+        } else {
+            greetingText = "Selamat Malam";
+            document.body.classList.add('night-mode');
+            document.getElementById('container').classList.add('night-mode');
         }
 
-        function formatAndUpdateNominal() {
-            formatInput(document.getElementById('nominal'));
-        }
+        greetingElement.textContent = greetingText;
+    }
 
-        function updateFormattedNominal() {
-            const nominal = document.getElementById('nominal').value;
-            const currency = document.getElementById('currency').value;
-            document.getElementById('formattedNominal').value = `${nominal} ${currency}`;
-        }
+    window.onload = () => {
+        loadSession();
+        setGreetingAndNightMode();
+    };
+</script>
 
-        function loadSession() {
-            const savedProgress = localStorage.getItem('progress');
-            const savedMaxNominal = localStorage.getItem('maxNominal');
-            const savedCurrency = localStorage.getItem('currency');
-            if (savedProgress !== null) {
-                progress = parseFloat(savedProgress);
-                const maxNominal = parseFloat(savedMaxNominal);
-                const progressPercentage = (progress / maxNominal) * 100;
-                document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
-                document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
-                document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
-            }
-            if (savedMaxNominal !== null) {
-                document.getElementById('maxNominal').value = formatNumber(savedMaxNominal);
-            }
-            if (savedCurrency !== null) {
-                document.getElementById('currency').value = savedCurrency;
-            }
-        }
-
-        function nabung() {
-            let nominal = parseFloat(unformatNumber(document.getElementById('nominal').value));
-            const currency = document.getElementById('currency').value;
-            const maxNominal = parseFloat(unformatNumber(document.getElementById('maxNominal').value));
-            
-            if (currency === "USD") {
-                nominal *= conversionRate;
-            }
-
-            if (isNaN(nominal) || isNaN(maxNominal) || nominal <= 0 || maxNominal <= 0) {
-                alert("Masukkan nominal dan nominal maksimal yang valid.");
-                return;
-            }
-
-            if (progress + nominal <= maxNominal) {
-                progress += nominal;
-                localStorage.setItem('progress', progress);
-                localStorage.setItem('maxNominal', maxNominal);
-                localStorage.setItem('currency', currency);
-                const progressPercentage = (progress / maxNominal) * 100;
-                document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
-                document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
-                document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
-                alert(`Menabung ${formatNumber(nominal)} IDR`);
-            } else {
-                alert("Nominal tabungan melebihi batas maksimal.");
-            }
-        }
-
-        function login() {
-            const password = document.getElementById('password').value;
-            if (password === correctPassword) {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('readonly-section').style.display = 'block';
-            } else {
-                alert("Password salah!");
-            }
-        }
-
-        window.onload = loadSession;
-    </script>
 </body>
 </html>
