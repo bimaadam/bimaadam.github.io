@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bima Adam | Nabung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f4f8;
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .progress-bar {
+            background-color: #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            margin: 20px 0;
+            height: 30px;
+            width: 100%;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            border-radius: 25px;
+            background-color: #4CAF50;
+            width: 0%;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+
+        .progress-amount {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px);
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px);
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .login-form, .readonly {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nabung ke Lombok</h1>
+        <div class="login-form" id="login-form">
+            <input type="password" id="password" placeholder="Masukkan password" />
+            <button class="btn" onclick="login()">Login</button>
+        </div>
+        <div class="readonly" id="readonly-section" style="display: none;">
+            <input type="text" id="nominal" placeholder="Masukkan nominal" oninput="formatAndUpdateNominal()" onblur="formatInput(this)" />
+            <select id="currency" onchange="updateFormattedNominal()">
+                <option value="IDR">IDR</option>
+                <option value="USD">USD</option>
+            </select>
+            <input type="text" id="formattedNominal" placeholder="Nominal dengan format" readonly />
+            <input type="text" id="maxNominal" placeholder="Masukkan nominal maksimal" oninput="formatInput(this)" onblur="formatInput(this)" />
+            <button class="btn" onclick="nabung()">Nabung</button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-bar-inner" id="progress-bar-inner">0%</div>
+        </div>
+        <div class="progress-amount" id="progress-amount">Terkumpul: 0 IDR</div>
+    </div>
+
+    <script>
+        let progress = 0;
+        const conversionRate = 15000; // Example conversion rate from USD to IDR
+        const correctPassword = "ririnbima123"; 
+
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function unformatNumber(number) {
+            return number.replace(/[^\d]/g, "");
+        }
+
+        function formatInput(input) {
+            const value = unformatNumber(input.value);
+            input.value = formatNumber(value);
+            updateFormattedNominal();
+        }
+
+        function formatAndUpdateNominal() {
+            formatInput(document.getElementById('nominal'));
+        }
+
+        function updateFormattedNominal() {
+            const nominal = document.getElementById('nominal').value;
+            const currency = document.getElementById('currency').value;
+            document.getElementById('formattedNominal').value = `${nominal} ${currency}`;
+        }
+
+        function loadSession() {
+            const savedProgress = localStorage.getItem('progress');
+            const savedMaxNominal = localStorage.getItem('maxNominal');
+            const savedCurrency = localStorage.getItem('currency');
+            if (savedProgress !== null) {
+                progress = parseFloat(savedProgress);
+                const maxNominal = parseFloat(savedMaxNominal);
+                const progressPercentage = (progress / maxNominal) * 100;
+                document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
+                document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
+                document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
+            }
+            if (savedMaxNominal !== null) {
+                document.getElementById('maxNominal').value = formatNumber(savedMaxNominal);
+            }
+            if (savedCurrency !== null) {
+                document.getElementById('currency').value = savedCurrency;
+            }
+        }
+
+        function nabung() {
+            let nominal = parseFloat(unformatNumber(document.getElementById('nominal').value));
+            const currency = document.getElementById('currency').value;
+            const maxNominal = parseFloat(unformatNumber(document.getElementById('maxNominal').value));
+            
+            if (currency === "USD") {
+                nominal *= conversionRate;
+            }
+
+            if (isNaN(nominal) || isNaN(maxNominal) || nominal <= 0 || maxNominal <= 0) {
+                alert("Masukkan nominal dan nominal maksimal yang valid.");
+                return;
+            }
+
+            if (progress + nominal <= maxNominal) {
+                progress += nominal;
+                localStorage.setItem('progress', progress);
+                localStorage.setItem('maxNominal', maxNominal);
+                localStorage.setItem('currency', currency);
+                const progressPercentage = (progress / maxNominal) * 100;
+                document.getElementById('progress-bar-inner').style.width = progressPercentage + '%';
+                document.getElementById('progress-bar-inner').textContent = Math.min(progressPercentage, 100).toFixed(2) + '%';
+                document.getElementById('progress-amount').textContent = `Terkumpul: ${formatNumber(progress)} IDR`;
+                alert(`Menabung ${formatNumber(nominal)} IDR`);
+            } else {
+                alert("Nominal tabungan melebihi batas maksimal.");
+            }
+        }
+
+        function login() {
+            const password = document.getElementById('password').value;
+            if (password === correctPassword) {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('readonly-section').style.display = 'block';
+            } else {
+                alert("Password salah!");
+            }
+        }
+
+        window.onload = loadSession;
+    </script>
+</body>
+</html>
