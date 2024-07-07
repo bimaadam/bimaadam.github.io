@@ -85,16 +85,7 @@
             color: inherit;
         }
 
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            width: calc(100% - 22px);
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        select {
+        input[type="text"], input[type="password"], select {
             padding: 10px;
             border-radius: 10px;
             border: 1px solid #ccc;
@@ -147,23 +138,20 @@
     </div>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
     
-        // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyBVBaxBBFWB7gBO3YBK5a3nIW3rKL0JOxY",
-            authDomain: "tabunganbima-e187b.firebaseapp.com",
-            projectId: "tabunganbima-e187b",
-            storageBucket: "tabunganbima-e187b.appspot.com",
-            messagingSenderId: "225415384252",
-            appId: "1:225415384252:web:d438a5bbafc8c901f694b9",
-            measurementId: "G-MS0XPE8HN2"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
     
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
@@ -228,6 +216,10 @@
             if (password === correctPassword) {
                 document.getElementById('login-form').style.display = 'none';
                 document.getElementById('readonly-section').style.display = 'block';
+                loadSession().catch(error => {
+                    console.error("Error loading session: ", error);
+                    alert("Gagal memuat sesi. Periksa koneksi internet Anda.");
+                });
             } else {
                 alert("Password salah!");
             }
