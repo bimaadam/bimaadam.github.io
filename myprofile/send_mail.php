@@ -4,17 +4,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = htmlspecialchars($_POST['email']);
     $message = htmlspecialchars($_POST['message']);
 
-    $to = "bimaadamrailfans35@gmail.com"; 
-    $subject = "New Contact Form Submission";
-    $headers = "From: " . $email . "\r\n" .
-               "Reply-To: " . $email . "\r\n" .
-               "X-Mailer: PHP/" . phpversion();
-    $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
+    $to = "bimavyanisty12@gmail.com";
+    $subject = "New Contact Form Message";
+    $headers = "From: " . $email . "\r\n";
+    $headers .= "Reply-To: " . $email . "\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+    $body = "<h2>Contact Form Message</h2>";
+    $body .= "<p><strong>Name:</strong> {$name}</p>";
+    $body .= "<p><strong>Email:</strong> {$email}</p>";
+    $body .= "<p><strong>Message:</strong><br>{$message}</p>";
 
     if (mail($to, $subject, $body, $headers)) {
         echo "Message sent successfully!";
     } else {
-        echo "Failed to send message. Please try again later.";
+        echo "Failed to send the message.";
     }
+} else {
+    echo "Invalid request.";
 }
 ?>
