@@ -13,8 +13,7 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.578); /* Green background color with 80% opacity */
-  background-image: url('/assets/img/background/bg.jpg'); /* Background image */
+  background-image: url('/assets/img/background/Train.png'); /* Background image */
   background-size: cover;   
   background-repeat: no-repeat; 
   background-position: center;
@@ -120,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #header h2 span {
   color: #ffc107;
-  border-bottom: 2px solid #1c7d32;
+  border-bottom: 2px solid #f6f8f7;
   padding-bottom: 6px;
 }
 
@@ -217,7 +216,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
-  color: #12d640;
+  color: #ff6b6b;
   text-decoration: none;
 }
 
