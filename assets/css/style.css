@@ -13,7 +13,7 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background-image: url('/assets/img/background/79.JPG'); /* Background image */
+  background-image: url('/assets/img/background/Train.png'); /* Background image */
   background-size: cover;   
   background-repeat: no-repeat; 
   background-position: center;
