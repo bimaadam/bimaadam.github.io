@@ -13,7 +13,7 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background-image: url('/assets/img/background/Train.png'); /* Background image */
+  background: linear-gradient(to left, rgba(var(--ctp-mocha-base-rgb)), rgb(24, 24, 37)), rgb(108, 112, 134);
   background-size: cover;   
   background-repeat: no-repeat; 
   background-position: center;
@@ -67,11 +67,11 @@ body::before {
   }
 
 a {
-  color: #12d640;
+  color: rgb(245, 194, 231);
 }
 
 a:hover {
-  color: #12d640;
+  color: rgb(245, 194, 231);
   text-decoration: none;
 }
 
@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header .social-links a:hover {
-  background: #1c7d32;
+  background: rgb(245, 194, 231);
 }
 
 @media (max-width: 992px) {
@@ -216,7 +216,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
-  color: #ff6b6b;
+  color: rgb(245, 194, 231);
   text-decoration: none;
 }
 
