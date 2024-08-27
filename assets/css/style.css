@@ -4,6 +4,9 @@ SO DONT FUCKING COPY PASTE
 JANGAN MAIN COPY PASTE
 /**/
 /* CSS tambahan untuk mode mobile */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
 body {
   font-family: "Open Sans", sans-serif;
@@ -87,7 +90,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -117,19 +120,18 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 15px;
   }
 
-  #header h1 {
+  #header h1 a {
     margin-top: 500px;
     justify-items: center;
-    font-size: 32px;
+    font-size: 28px;
     padding: 10px 10px;
-    line-height: 1;
-    font-weight: 800;
+    font-weight: 600;
+    font-family: "Poppins"; 
   }
 
   #header h2 {
     justify-items: center;
     text-align: center;
-    font-size: 18px;
   }
 
   #splash-screen {
