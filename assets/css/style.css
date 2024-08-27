@@ -24,6 +24,16 @@ body::before {
   height: 100vh;
 }
 
+img {
+  transition: transform 1s ease; 
+  transition-delay: 0.2s; 
+}
+
+img:hover {
+  transform: translateY(-15px); 
+  transition-delay: 0s; 
+}
+
 @media (min-width: 1024px) {
   body::before {
     background-attachment: fixed;
