@@ -17,31 +17,57 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background: linear-gradient(to right, rgba(var(--ctp-mocha-base-rgb)), rgb(24, 24, 37)), rgb(108, 112, 134);
-  background-size: cover;   
-  background-repeat: no-repeat; 
+  /* background: linear-gradient(to right, rgba(var(--ctp-mocha-base-rgb)), rgb(24, 24, 37)), rgb(108, 112, 134); */
+  background: url('/assets/img/background/background.png') no-repeat center center;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
   left: 0;
   right: 0;
   top: 0;
   height: 100vh;
+  z-index: -1; 
+}
+/* animasi rocket mengambang hehe */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 img {
+  animation: float 3s ease-in-out infinite; /* Durasi animasi 3 detik, dengan infinite loop */
   transition: transform 1s ease; 
   transition-delay: 0.2s; 
 }
 
 img:hover {
-  transform: translateY(-15px); 
-  transition-delay: 0s; 
+  transform: translateY(-15px);
+  transition-delay: 0s;
 }
+
 
 @media (min-width: 1024px) {
   body::before {
     background-attachment: fixed;
   }
-
+  #header .social-links a {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: #cba6f7;
+    line-height: 1;
+    border-radius: 50%;
+    margin-left: -5px;
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+  }
 }
   /* Splash Screen */
   #splash-screen {
@@ -112,8 +138,8 @@ h1, h2, h3, h4, h5, h6 {
   .social-links a {
     margin-bottom: 50px;
     margin-top: 50px;
+    margin-right: 10px;
     margin-left: 50px;
-    margin-right: 50px;
   }
 
   #header .container {
@@ -124,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 500px;
     justify-items: center;
     font-size: 28px;
-    padding: 10px 10px;
+    padding: 0px 100px;
     font-weight: 600;
     font-family: "Poppins"; 
   }
@@ -153,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 /*--------------------------------------------------------------
-# Header
+# Header Media Desktop
 --------------------------------------------------------------*/
 #header {
   transition: ease-in-out 0s;
@@ -197,22 +223,11 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
 }
 
-#header .social-links a {
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  line-height: 1;
-  margin-right: 8px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-}
+
+
 
 #header .social-links a:hover {
-  background: rgb(245, 194, 231);
+  background: #45475a;
 }
 
 @media (max-width: 992px) {
@@ -249,14 +264,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu li + li {
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 .nav-menu a {
   display: block;
   position: relative;
-  color: #fff;
-  font-size: 19px;
+  color: rgb(249, 226, 175);
+  font-size: 16px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
@@ -337,7 +352,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {
-  color: #1c7d32;
+  color: rgb(127, 132, 156);
   text-decoration: none;
 }
 
