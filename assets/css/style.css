@@ -17,8 +17,8 @@ body {
 body::before {
   content: "";
   position: fixed;
-  /* background: linear-gradient(to right, rgba(var(--ctp-mocha-base-rgb)), rgb(24, 24, 37)), rgb(108, 112, 134); */
-  background: url('/assets/img/background/background.png') no-repeat center center;
+  background: linear-gradient(to right, rgba(var(--ctp-mocha-base-rgb)), rgb(24, 24, 37)), rgb(108, 112, 134);
+  /* background: url('/assets/img/background/background.png') no-repeat center center; */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
