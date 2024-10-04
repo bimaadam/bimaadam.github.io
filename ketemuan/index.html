@@ -7,17 +7,65 @@
     <!-- <link rel="stylesheet" href="styles.css"> -->
      <style>
        /* cattppucin theme */
-body {
+       body {
     background: url('edited.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #d9e0ee;
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.7;
+    line-height: 1.7; /* Menambahkan jarak antar-baris */
     position: relative;
     overflow-x: hidden;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #bac2de;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 90%;
+    margin: 0 auto;
+    gap: 20px; /* Jarak antara gambar dan teks */
+}
+
+.content img {
+    max-width: 150px; /* Ukuran gambar */
+    border-radius: 12px;
+}
+
+.content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-align: justify;
+    margin: 0;
+    flex: 1; /* Agar teks menempati sisa ruang */
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column; /* Kembali ke satu kolom pada layar kecil */
+        align-items: center;
+    }
+
+    .content img {
+        margin-bottom: 20px;
+    }
+
+    .content p {
+        text-align: left;
+    }
+}
+
+
+
 
 body::before {
     content: "";
@@ -32,10 +80,10 @@ body::before {
 
 header {
     text-align: center;
-    padding: 50px 20px;
+    padding: 20px;
     background-color: rgba(59, 59, 79, 0.9);
     color: #cdd6f4;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     border-radius: 0 0 20px 20px; /* Rounded bottom corners */
     animation: fadeInDown 1s ease-in-out;
     position: relative;
@@ -43,15 +91,40 @@ header {
 }
 
 h1 {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     margin: 0;
     letter-spacing: 2px;
 }
 
 .date {
     margin-top: 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #8c8ca1;
+}
+
+.button-container {
+    margin: 10px 0;
+}
+
+button {
+    border-radius: 12px;
+    background-color: #8bf397;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1rem;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .date, button {
+        font-size: 0.9rem;
+    }
 }
 
 main {
@@ -59,10 +132,11 @@ main {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #f38ba8;
-    margin-top: 50px;
+    margin-top: 40px;
     animation: fadeInLeft 1s ease-in-out;
+    position: center;
 }
 
 p {
@@ -74,7 +148,7 @@ p {
 .content {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding: 20px;
     background-color: rgba(40, 40, 60, 0.8);
     border-radius: 10px;
@@ -94,7 +168,7 @@ p {
 
 .photo-wrapper {
     flex-shrink: 0;
-    width: 250px;
+    width: 200px;
     animation: fadeInRight 1s ease-in-out;
 }
 
@@ -107,11 +181,6 @@ p {
 
 .photo:hover {
     transform: scale(1.05);
-}
-
-/* Hide audio controls and autoplay the music */
-audio {
-    display: flex;
 }
 
 footer {
@@ -168,14 +237,78 @@ footer {
     }
 }
 
+/* Musik player theme */
+#music {
+    text-align: center;
+    color: #bac2de;
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.audio-player {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+    background-color: #202020;
+    border-radius: 10px;
+    padding: 10px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.play-btn, .volume-btn {
+    background-color: #FF647F;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.play-btn:hover, .volume-btn:hover {
+    background-color: #FF425A;
+}
+
+.progress-bar {
+    flex: 1;
+    margin: 0 15px;
+}
+
+.seek-slider {
+    width: 100%;
+    background: linear-gradient(to right, #FF647F 0%, #bac2de 100%);
+    cursor: pointer;
+}
+
+.current-time, .duration {
+    color: #fff;
+    font-size: 14px;
+}
+
+.volume-slider {
+    width: 100px;
+    cursor: pointer;
+}
+
+
      </style>
 </head>
 <body>
     <header>
         <h1>Perjalanan Solo ke Lombok: Kisah Bima Bertemu Sang Kekasih LDR</h1>
-        <p class="date">21 September 2024 - 30 September 2024 <strong><br>INFO MENGENAI TIKET KERETA DAN KAPAL <a href="#info"><button>klik disini</button></strong></p></a>
+        <div class="date">21 September 2024 - 30 September 2024</div>
+        <div class="button-container">
+            <p>Info Tiket Kereta dan Kapal Ferry bisa klik Tombol Hijau</p>
+            <a href="/ketemuan/tiketkapal/" target="_blank"><button>Informasi Tiket</button></a> 
+        </div>
     </header>
+
     <main>
+        <div class="container">
         <section id="intro">
             <p>Akhirnya setelah sekian lama, saya, Bima, berangkat sendirian dari Solo menuju Lombok untuk bertemu dengan Ririn. Perjalanan ini penuh dengan berbagai macam perasaan, dari rasa rindu, gugup, harus kuat mental sampai harapan bisa bertemu langsung setelah sekian lama menjalin hubungan jarak jauh.</p>
         </section>
@@ -183,11 +316,21 @@ footer {
         <section id="music">
             <h2>Lagu yang Menemani Perjalanan</h2>
             <p>Selama perjalanan, ada satu lagu yang terus menemani saya dan memberikan semangat untuk segera sampai di Lombok. Lagu ini menjadi soundtrack dari perjalanan yang penuh emosi ini.</p>
-            <audio controls>
-                <source src="Niken Laundry - Lamunan.mp3" type="audio/mpeg">
-                Browser kamu tidak mendukung pemutar audio.
-            </audio>
+            
+            <div class="audio-player">
+                <button class="play-btn">Play</button>
+                <div class="progress-bar">
+                    <input type="range" class="seek-slider" max="100" value="0">
+                </div>
+                <span class="current-time">00:00</span>
+                <span class="duration">00:00</span>
+                <button class="volume-btn">🔊</button>
+                <input type="range" class="volume-slider" max="1" value="1" step="0.01">
+            </div>
+        
+            <audio id="audio" src="BLESSED MANE - LOVE DEATH SPACE FULL ALBUM.mp3"></audio>
         </section>
+        
 
         <section id="journey">
             <h2>Perjalanan Solo ke Lombok</h2>
@@ -213,7 +356,7 @@ footer {
             </div>
         </section>
 
-        <section id="pulang hp saya keadaan mati total"></section>
+        <section id="pulang hp saya keadaan mati total">
             <h2>Momen Menyedihkan</h2>
             <div class="content">
                 <div class="text">
@@ -242,6 +385,7 @@ footer {
             <h3>Info Selengkapnya mengenai cerita saya yang lebih detail bisa klik tombol di bawah, dan bisa juga mengenai tiket Kereta dan Kapal Ferry ingin berlibur ke Lombok, sekian pengalaman bertemu dengan calon Istri saya Ririn Setiawati Sayangku Cintaku istriku hehe</h3>
             <a href="mailto:bimaadamrailfans35@gmail.com" target="_blank"><button style="border-radius: 12px ; background-color: #8bf397; border: none; cursor: pointer; padding: 10px 20px;">Gmail</button></a> <a href="https://wa.me/+6289663164143/" target="_blank"><button style="border-radius: 12px ; background-color: #8bf397; border: none; cursor: pointer; padding: 10px 20px;">Whatsapp</button></a>
         </section>
+    </div>
 
     </main>
     <footer>
@@ -249,6 +393,55 @@ footer {
     </footer>
 
     <script>
+        const audio = document.getElementById("audio");
+const playButton = document.querySelector(".play-btn");
+const seekSlider = document.querySelector(".seek-slider");
+const currentTimeDisplay = document.querySelector(".current-time");
+const durationDisplay = document.querySelector(".duration");
+const volumeButton = document.querySelector(".volume-btn");
+const volumeSlider = document.querySelector(".volume-slider");
+
+let isPlaying = false;
+
+// Play/Pause toggle
+playButton.addEventListener("click", () => {
+    if (isPlaying) {
+        audio.pause();
+        playButton.textContent = "Play";
+    } else {
+        audio.play();
+        playButton.textContent = "Pause";
+    }
+    isPlaying = !isPlaying;
+});
+
+// Update the progress bar and time
+audio.addEventListener("timeupdate", () => {
+    const currentTime = audio.currentTime;
+    const duration = audio.duration;
+    
+    seekSlider.value = (currentTime / duration) * 100;
+    currentTimeDisplay.textContent = formatTime(currentTime);
+    durationDisplay.textContent = formatTime(duration);
+});
+
+// Seek audio
+seekSlider.addEventListener("input", () => {
+    audio.currentTime = (seekSlider.value / 100) * audio.duration;
+});
+
+// Volume control
+volumeSlider.addEventListener("input", () => {
+    audio.volume = volumeSlider.value;
+});
+
+// Format time helper
+function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
         // Animasi untuk header fade-in saat halaman dimuat
     document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector("header");
@@ -261,3 +454,4 @@ footer {
     </script>
 </body>
 </html>
+
