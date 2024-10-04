@@ -17,8 +17,11 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background: linear-gradient(to right, rgba(var(--ctp-mocha-base-rgb)), rgb(24, 24, 37)), rgb(108, 112, 134);
-  /* background: url('/assets/img/background/background.png') no-repeat center center; */
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), /* Warna overlay dengan transparansi 50% */
+    rgba(0, 0, 0, 0.5)
+  ), 
+  url('/assets/img/background/edited.jpg') no-repeat center center;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -26,7 +29,8 @@ body::before {
   right: 0;
   top: 0;
   height: 100vh;
-  z-index: -1; 
+  z-index: -1;
+
 }
 /* animasi rocket mengambang hehe */
 @keyframes float {
