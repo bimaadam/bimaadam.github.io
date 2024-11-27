@@ -1,166 +1,106 @@
 <!DOCTYPE html>
-<html>
-<meta charset='UTF-8'/><meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5' name='viewport'/><meta content='IE=edge' http-equiv='X-UA-Compatible'/>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script><link href="https://feeldreams.github.io/heihbd/style.css" rel="stylesheet" type="text/css" />
-  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
-  <script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
-  
+<html lang="en">
 <head>
-<title>Script HTML buat Kamu</title>
-<link rel="icon" type="image/x-icon" href="https://www.palingit.com/favicon.ico">
-<meta name="description" content="HTML Replit Coding">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulang Tahun ayang</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #4c7cff, #26158b);
+      transition: background 1s ease-in-out;
+    }
 
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: float 5s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-50px);
+      }
+    }
+  </style>
 </head>
-<body>
-	
-   <!-- Ganti Audio di sini -->
-   <audio src="" id="linkmp3" class="sembunyi"></audio>
-   
-   <div id="bodyblur">
-     <!-- Wallpaper --><img src="https://raw.githubusercontent.com/bimaadam/bimaadam.github.io/master/assets/img/background/edited.jpg" id="wallpaper"/>
-<div id="beneranblur"></div>
-   </div>
-   
-   <div id='Content'>
+<body id="mainBody" class="flex items-center justify-center h-screen overflow-hidden relative">
 
-     <div id="kadoIn">
-       <!-- Tombol Surat --><img src="https://feeldreams.github.io/kadoin.png"/>
-     </div>
-     <p id="ket">Klik Kadonya!</p>
+  <!-- Particles -->
+  <div class="particle" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+  <div class="particle" style="top: 20%; left: 45%; animation-delay: 1s;"></div>
+  <div class="particle" style="top: 50%; left: 30%; animation-delay: 2s;"></div>
+  <div class="particle" style="top: 70%; left: 60%; animation-delay: 1.5s;"></div>
+  <div class="particle" style="top: 80%; left: 85%; animation-delay: 0.5s;"></div>
 
-     <div class="kumpulanstiker">
-         <!-- Stiker untuk Konten -->
-         <img src="https://feeldreams.github.io/bunga.gif" id="fotostiker"/>
-         <img src="https://feeldreams.github.io/pusn.gif" id="fotostiker1"/>
-         <img src="https://feeldreams.github.io/pandacoklat.gif" id="fotostiker2"/>
-         <img src="https://feeldreams.github.io/cilukba.gif" id="fotostiker3"/>
-         <img src="https://feeldreams.github.io/pandakuning.gif" id="fotostiker4"/>
-         <img src="https://feeldreams.github.io/emawh.gif" id="fotostiker5"/>
-         
-         <img src="https://feeldreams.github.io/pandacoklat.gif" id="fotostiker6"/>
-     </div>
-     
-     <p id="halo" class="halo"></p>
-     
-     <div><blockquote id='bq' data-text='㋡'>
-       <p id="kalimat">Mas Ada Sesuatu Nih 🤣❤️</p>
+  <!-- Main Content -->
+  <div id="content" class="text-center">
+    <h1 class="text-4xl sm:text-6xl font-bold text-white mb-6">
+      Happy Birthday, Sayangku! 🎉😚
+    </h1>
+    <button
+      id="showMessage"
+      class="bg-pink-500 text-white px-6 py-3 rounded-lg text-xl font-medium hover:bg-pink-600 transition">
+      Klik untuk Kejutan 🎁
+    </button>
+  </div>
 
-       <p id="pesan1">Klik 4 LOVE di Bawah! 😆❤️</p>
-       <div id="kolombaru">
-         <li id="lv1">🤍</li>
-         <li id="lv2">🤍</li>
-         <li id="lv3">🤍</li>
-         <li id="lv4">🤍</li>
-       </div>
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 flex items-center justify-center backdrop-blur-md bg-black/50">
+    <div class="text-center text-white max-w-md px-4">
+        <img
+        src="IMG-20240725-WA0038.jpg"
+        alt="Foto ayang"
+        class="w-48 h-48 mx-auto rounded-full shadow-lg mb-4 animate-pulse object-cover aspect-square">      
+      <p class="text-xl sm:text-2xl font-light mb-4">
+        Sayangku, cintaku duniaku, istriku.<br>
+        
+Barakallah fii umrik ya sayangku 😘
 
-       <p id="pesan2">Tunggu...</p>
-       <!-- Pesan -->
-       <p id="pesan3">Ciee.. Ada yang Ultah Nih ❤️</p>
-       <p id="pesan4">Happy Birthday, Cantikku Duniaku </p>
-       <p id="pesan5" class="gaya2">Nambah tua aja ya, hehe</p>
-       <p id="pesan6" class="gaya2">Panjang umur sehat selalu selalu sabar yah cantikku ❤️</p>
-       <p id="pesan7" class="gaya2">Kita berjuang bareng" yah cantik, ayang sukses terus semangat gambate 💪</p>
+Semoga keberkahan selalu Allah limpahkan di setiap detik usiamu.
+Untukmu, selamat ulang tahun ya, sayang!
 
-       <p id="pesan8" class="gaya2">Canda wkwwk :v</p>
-       <p id="pesan9" class="gaya2">Semoga lebih baik, lebih baik lagi ya sayangku cantikku 🥳❤️</p>
-       <p id="pesan10" class="gaya2">Level Up 17 makin cantik sexy ehhh hehe emang iya kan >.< 🥳</p>
+Di hari yang spesial ini, mas berharap ini menjadi awal yang indah untuk perjalananmu ke depan.
+Semoga Allah selalu memberimu umur yang panjang, kesehatan yang sempurna, dan lindungan-Nya di setiap langkahmu.
+Mas juga berdoa semoga ayang bisa menjadi pribadi yang lebih baik lagi dari sebelumnya.
 
-       <!-- Tombol Lanjut -->
-       <p id="opsL">Klik untuk Lanjut</p>
-     </blockquote></div>
+Mas yakin rezeki sayangku selalu dimudahkan oleh Allah.
+Maaf ya, sayang, kalau mas cuma bisa memberikan kata-kata ini.
+Mas belum bisa memberikan sesuatu yang istimewa seperti kado atau barang berharga lainnya.
+Tapi, mas berharap dengan ucapan ini, ayang bisa merasa bahagia.
 
-     <!-- Tombol Kirim Pesan -->
-     <div id="Tombol"><a id="By">&#128140; Lanjut</a></div>
+Mas selalu sayang sama ayang, dan mas berharap ayang selalu sayang sama mas juga.
+Sekali lagi, selamat ulang tahun, sayangku yang paling spesial! ❤️ 💖
+      </p>
+      <a
+        href="/v2/index.html"
+        class="mt-6 bg-white text-pink-500 px-5 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
+        Lanjutkan
+      </a>
+    </div>
+  </div>
 
-     <!-- Pesan Tambahan -->
-     <p id="katatambahan" class="sembunyi">Gajadi deh soalnya ayang bau wleee 😜</p>
-     
-     <!-- Pesan Ditolak -->
-     <div id="pesanditolak">
-       <img id="stikerditolak" src="https://feeldreams.github.io/weee.gif"/>
-       <p id="kataditolak">Yaudah kalo gamau mh 😜</p>
-     </div>
+  <script>
+    const body = document.getElementById('mainBody');
+    const modal = document.getElementById('modal');
+    const showMessage = document.getElementById('showMessage');
+    const closeModal = document.getElementById('closeModal');
 
-   </div>
-
-   <script>
-    const body = document.querySelector("body");
-    const swalst = Swal.mixin({
-      timer: 2300,
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      timerProgressBar: true,
-      imageHeight: 90,
-    }); 
-  
-    audio = new Audio('' + linkmp3.src);
-    ftganti = 0;
-    fungsi = 0;
-    fungsiAwal = 0;
-    deffotostiker = fotostiker.src;
-  
-    function berjatuhan() {
-      const heart = document.createElement("div");
-      heart.className = "fas fa-snowflake";
-      heart.style.left = (Math.random() * 90) + "vw";
-      heart.style.animationDuration = (Math.random() * 3) + 2 + "s";
-      body.appendChild(heart);
-    }
-  
-    setInterval(function name(params) {
-      var heartArr = document.querySelectorAll(".fa-snowflake");
-      if (heartArr.length > 100) {
-        heartArr[0].remove();
-      }
-    }, 100);
-  
-    Content.style = "opacity:1;margin-top:16vh";
-    const swals = Swal.mixin({
-      allowOutsideClick: false,
-      cancelButtonColor: '#FF0040',
-      imageHeight: 80,
+    showMessage.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      body.style.background = "linear-gradient(to bottom, #1e293b, #0f172a)";
     });
-  
-    document.getElementById("kadoIn").onclick = function() {
-      if (fungsiAwal == 0) {
-        audio.play();
-        fungsiAwal = 1;
-        kadoIn.style = "transition:all .8s ease;transform:scale(10);opacity:0";
-        wallpaper.style = "transform: scale(1.5);";
-        ket.style = "display:none";
-        setTimeout(initengahan, 300);
-        setTimeout(inipesan, 500);
-      }
-    };
-  
-    async function inipesan() {
-      // Langsung hardcode nama ke Ririn
-      const nama = "Sayangku Istriku";
-      window.nama = nama; // Variabel nama tetap ada untuk script lain
-      vketikhalo = "Hai, " + nama + " ✨";
-      mulainama();
-    }
-  
-    // Variable Pertanyaan Akhir
-    var tanya = 'Mau Kado Gak Nih? 😶❤️';
-    var opstanya = 'Ayo jawab 😆';
-    var tompositif = 'Mau';
-    var tomnegatif = 'Engga';
-  
-    async function menuju() {
-      pesanwhatsapp = "Makasii udah ngucapin " + nama + " ultah ><";
-      await swals.fire('OK!', 'Kirim jawabannya ke WhatsApp mas, ya!', 'success');
-      window.location = "https://api.whatsapp.com/send?phone=&text=" + pesanwhatsapp;
-    }
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      body.style.background = "linear-gradient(to bottom, #ffddc1, #ffa1a1)";
+    });
   </script>
-  
-<script src="https://feeldreams.github.io/heihbd/script.js"></script>
-<!-- Sampai Sini -->
 </body>
-  </html>
+</html>
