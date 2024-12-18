@@ -6,18 +6,19 @@ html {
 }
 
 header {
-background-color: #585b70;
+  background-color: #585b70;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  flex-wrap: wrap; /* Supaya elemen turun jika ruang tidak cukup */
 }
 
 #logo {
-    border-radius: 20px;
-    width: 5%;
-    height: 5%;
-    margin: 0 0 0 0;
+  border-radius: 20px;
+  width: 40px; /* Atur ulang ukuran untuk mobile */
+  height: auto;
+  margin: 0;
 }
 
 .searchInput {
@@ -25,18 +26,19 @@ background-color: #585b70;
   padding: 8px 16px;
   border: 1px solid #cba6f7;
   border-radius: 8px;
+  width: 100%; /* Full width pada layar kecil */
+  max-width: 250px; /* Batas maksimal ukuran */
 }
 
 #searchButton {
-    color: #89b4fa;
-    background: none;
-    font-size: 25px; 
+  color: #89b4fa;
+  background: none;
+  font-size: 25px;
 }
-
 
 #moviesElement {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsif */
   padding: 16px;
   gap: 16px;
   background-color: #585b70;
@@ -44,19 +46,19 @@ background-color: #585b70;
 
 .movie {
   width: 100%;
-  height: 350px;
+  height: auto;
   box-shadow: 0 4px 5px #7f849c;
   padding: 16px;
 }
 
 .movie img {
   width: 100%;
-  height: 50%;
+  height: auto;
   object-fit: cover;
 }
 
 .detail {
-    color: #cdd6f4;
+  color: #cdd6f4;
 }
 
 .pagination {
@@ -82,4 +84,31 @@ background-color: #585b70;
   font-size: x-large;
   color: beige;
   cursor: pointer;
+}
+
+/* MEDIA QUERY FOR MOBILE */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start; /* Supaya elemen rata kiri */
+    gap: 8px; /* Beri jarak antar elemen */
+  }
+
+  #logo {
+    width: 50px; /* Sedikit lebih besar di mobile */
+  }
+
+  #moviesElement {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ukuran lebih kecil */
+  }
+
+  #searchButton {
+    font-size: 20px; /* Ikon lebih kecil untuk layar sempit */
+  }
+
+  #prev,
+  #next {
+    font-size: medium;
+    padding: 6px 12px; /* Padding lebih kecil */
+  }
 }
