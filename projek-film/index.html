@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Film Terbaru - TMDB</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <h3 id="title">Film Terbaru</h3>
+      <img id="logo" src="/assest/BIMZJS1.png" alt="" />
+      <form id="searchForm">
+          <input
+          id="search"
+          type="text"
+          placeholder="search"
+          class="searchInput"
+          />
+          <button type="submit" id="searchButton">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+    </header>
+
+    <div id="moviesElement"></div>
+    <div class="pagination">
+      <div id="prev">Prev</div>
+      <div id="currentPage"></div>
+      <div id="next">Next</div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
