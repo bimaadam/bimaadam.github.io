@@ -3,18 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rinbim.dev - Jasa Coding Tugas Akhir</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Rinbim.dev - Jasa Coding Tugas Akhir Terjangkau</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        header h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        header nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        header nav ul li {
+            margin-left: 30px;
+        }
+        
+        header nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        header nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .pricing .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .card ul {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .card ul li:before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            
+            header nav ul {
+                margin-top: 20px;
+            }
+            
+            header nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Rinbim.dev</h1>
+            <h1><i class="fas fa-code"></i> Rinbim.dev</h1>
             <nav>
                 <ul>
-                    <li><a href="#harga">Daftar Harga</a></li>
-                    <li><a href="#kontak">Kontak</a></li>
+                    <li><a href="#harga"><i class="fas fa-tags"></i> Daftar Harga</a></li>
+                    <li><a href="#kontak"><i class="fas fa-envelope"></i> Kontak</a></li>
                 </ul>
             </nav>
         </div>
@@ -23,65 +221,115 @@
     <section class="hero">
         <div class="container">
             <h2>Jasa Coding Tugas Akhir Sistem Akuntansi</h2>
-            <p>Solusi Backend dan UI yang Responsif</p>
-            <a href="#harga" class="cta-button">Lihat Daftar Harga</a>
+            <p>Solusi lengkap untuk tugas akhirmu dengan harga terjangkau!</p>
+            <a href="#harga" class="cta-button"><i class="fas fa-arrow-down"></i> Lihat Daftar Harga</a>
         </div>
     </section>
 
     <section id="harga" class="pricing">
         <div class="container">
-            <h2>Daftar Harga Jasa Coding</h2>
+            <h2>Paket Harga Jasa Coding</h2>
             <div class="card">
-                <h3>PHP Only (No Framework)</h3>
+                <h3><i class="fab fa-php"></i> PHP Native</h3>
                 <ul>
                     <li>CRUD (Transaksi, Jurnal, Buku Besar)</li>
-                    <li>Autentikasi sederhana (Login/Register)</li>
-                    <li>Laporan PDF</li>
-                    <li>Charting dengan Chart.js</li>
+                    <li>Sistem Login/Register</li>
+                    <li>Ekspor Laporan PDF</li>
+                    <li>Visualisasi Data dengan Chart.js</li>
+                    <li>Template Admin Sederhana</li>
                 </ul>
-                <p class="price">Harga: Rp 700k – 900k</p>
+                <p class="price">Rp 700k - 900k</p>
             </div>
             <div class="card">
-                <h3>CodeIgniter 4</h3>
+                <h3><i class="fas fa-fire"></i> CodeIgniter 4</h3>
                 <ul>
-                    <li>Struktur MVC rapih</li>
-                    <li>CRUD lengkap</li>
-                    <li>Auth session-based</li>
-                    <li>PDF export</li>
-                    <li>Charting Chart.js</li>
+                    <li>Struktur MVC yang rapi</li>
+                    <li>CRUD lengkap dengan validasi</li>
+                    <li>Sistem Auth session-based</li>
+                    <li>Ekspor PDF & Excel</li>
+                    <li>Dashboard Admin</li>
                 </ul>
-                <p class="price">Harga: Rp 800k – 1,1 juta</p>
+                <p class="price">Rp 800k - 1,1 juta</p>
             </div>
             <div class="card">
-                <h3>Slim Framework</h3>
+                <h3><i class="fas fa-bolt"></i> Slim Framework</h3>
                 <ul>
-                    <li>Routing & API ringan</li>
-                    <li>CRUD via PDO/MySQL</li>
-                    <li>Auth JWT</li>
-                    <li>PDF export</li>
+                    <li>API Backend yang ringan</li>
+                    <li>CRUD dengan PDO/MySQL</li>
+                    <li>Autentikasi JWT</li>
+                    <li>Dokumentasi API</li>
+                    <li>Integrasi Frontend</li>
                 </ul>
-                <p class="price">Harga: Rp 750k – 950k</p>
+                <p class="price">Rp 750k - 950k</p>
             </div>
             <div class="card">
-                <h3>Laravel</h3>
+                <h3><i class="fab fa-laravel"></i> Laravel</h3>
                 <ul>
-                    <li>MVC lengkap + Eloquent ORM</li>
-                    <li>Auth lengkap</li>
-                    <li>PDF export</li>
+                    <li>Struktur MVC lengkap</li>
+                    <li>Eloquent ORM</li>
+                    <li>Sistem Auth lengkap</li>
                     <li>Dashboard AdminLTE</li>
+                    <li>Ekspor PDF & Excel</li>
                 </ul>
-                <p class="price">Harga: Rp 1,2 juta – 1,8 juta</p>
+                <p class="price">Rp 1,2 juta - 1,8 juta</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Kenapa Memilih Kami?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-wallet"></i>
+                    <h3>Harga Mahasiswa</h3>
+                    <p>Kami paham budget mahasiswa, harga kami sangat terjangkau!</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Cepat & Tepat</h3>
+                    <p>Pengerjaan cepat dengan kualitas terjamin untuk TA-mu</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Dibimbing</h3>
+                    <p>Kami bantu jelaskan kode untuk presentasi TA-mu</p>
+                </div>
             </div>
         </div>
     </section>
 
     <footer id="kontak">
         <div class="container">
-            <p>Hubungi kami untuk informasi lebih lanjut!</p>
-            <p>Email: info@rinbim.dev</p>
+            <h3>Hubungi Kami</h3>
+            <p><i class="fas fa-envelope"></i> Email: info@rinbim.dev</p>
+            <p><i class="fab fa-whatsapp"></i> WhatsApp: 0812-3456-7890</p>
+            <p><i class="fas fa-map-marker-alt"></i> Malang, Jawa Timur</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p class="copyright">&copy; 2023 Rinbim.dev - Jasa Coding Tugas Akhir</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add fixed header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+    </script>
 </body>
 </html>
