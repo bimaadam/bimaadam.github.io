@@ -246,6 +246,101 @@
         color: var(--color-secondary);
       }
 
+      /* Pricing Plans Section */
+      .pricing {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.9rem;
+        margin-top: 2rem;
+      }
+
+      .pricing-card {
+        background-color: var(--color-card-bg-light);
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(30, 58, 138, 0.12);
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: background-color var(--transition-speed),
+          box-shadow var(--transition-speed);
+      }
+      body.dark .pricing-card {
+        background-color: var(--color-card-bg-dark);
+        box-shadow: 0 10px 28px rgba(30, 58, 138, 0.6);
+      }
+      .pricing-card.popular {
+        border: 3px solid var(--color-secondary);
+        box-shadow: 0 15px 28px rgba(59, 130, 246, 0.6);
+      }
+      .pricing-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        margin-bottom: 0.4rem;
+      }
+      body.dark .pricing-title {
+        color: var(--color-secondary);
+      }
+      .pricing-price {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--color-secondary);
+      }
+      body.dark .pricing-price {
+        color: var(--color-accent);
+      }
+      .pricing-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem;
+        width: 100%;
+        text-align: left;
+        font-weight: 500;
+        font-size: 1rem;
+        color: #374151;
+      }
+      body.dark .pricing-features {
+        color: #cbd5e1;
+      }
+      .pricing-features li {
+        margin-bottom: 0.9rem;
+        position: relative;
+        padding-left: 25px;
+      }
+      .pricing-features li::before {
+        content: "✔";
+        position: absolute;
+        left: 0;
+        color: var(--color-secondary);
+      }
+      body.dark .pricing-features li::before {
+        color: var(--color-accent);
+      }
+      .pricing-button {
+        background-color: var(--color-primary);
+        border: none;
+        padding: 0.9rem 2.5rem;
+        border-radius: 30px;
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        width: fit-content;
+        align-self: center;
+      }
+      .pricing-button:hover,
+      .pricing-button:focus {
+        background-color: var(--color-secondary);
+        box-shadow: 0 10px 28px rgba(59, 130, 246, 0.7);
+        outline: none;
+      }
+
       /* Testimonials Section */
       .testimonials {
         background-color: var(--color-card-bg-light);
@@ -538,6 +633,10 @@
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           gap: 1.5rem 2rem;
         }
+        .pricing {
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1.5rem;
+        }
         .contact-section {
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 2rem;
@@ -655,6 +754,70 @@
             Solusi website yang dapat disesuaikan dengan kebutuhan bisnis Anda,
             memberikan fleksibilitas maksimal.
           </p>
+        </article>
+      </section>
+
+      <section class="pricing" aria-label="Pricing Plans">
+        <article class="pricing-card" tabindex="0" aria-labelledby="plan-basic">
+          <h3 class="pricing-title" id="plan-basic">Basic</h3>
+          <div class="pricing-price">Rp1.500.000</div>
+          <ul class="pricing-features">
+            <li>Desain responsif sederhana</li>
+            <li>Hingga 5 halaman statis</li>
+            <li>SEO dasar</li>
+            <li>1 revisi</li>
+            <li>Support via WhatsApp</li>
+          </ul>
+          <button
+            class="pricing-button"
+            onclick="window.open('https://wa.me/628999116665', '_blank')"
+          >
+            Pesan Paket Ini
+          </button>
+        </article>
+        <article
+          class="pricing-card popular"
+          tabindex="0"
+          aria-labelledby="plan-standard"
+        >
+          <h3 class="pricing-title" id="plan-standard">Standard</h3>
+          <div class="pricing-price">Rp3.000.000</div>
+          <ul class="pricing-features">
+            <li>Desain responsif modern</li>
+            <li>Hingga 10 halaman dengan CMS</li>
+            <li>SEO lanjutan</li>
+            <li>3 revisi</li>
+            <li>Integrasi media sosial</li>
+            <li>Support prioritas</li>
+          </ul>
+          <button
+            class="pricing-button"
+            onclick="window.open('https://wa.me/628999116665', '_blank')"
+          >
+            Pesan Paket Ini
+          </button>
+        </article>
+        <article
+          class="pricing-card"
+          tabindex="0"
+          aria-labelledby="plan-premium"
+        >
+          <h3 class="pricing-title" id="plan-premium">Premium</h3>
+          <div class="pricing-price">Rp5.000.000+</div>
+          <ul class="pricing-features">
+            <li>Desain kustom penuh</li>
+            <li>Website e-commerce & CMS lengkap</li>
+            <li>SEO profesional dan marketing</li>
+            <li>Revisi tak terbatas</li>
+            <li>Training & dokumentasi lengkap</li>
+            <li>Support penuh 24/7</li>
+          </ul>
+          <button
+            class="pricing-button"
+            onclick="window.open('https://wa.me/628999116665', '_blank')"
+          >
+            Pesan Paket Ini
+          </button>
         </article>
       </section>
 
