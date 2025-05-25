@@ -295,6 +295,65 @@
         opacity: 0.85;
       }
 
+      /* Order Instructions Section */
+      .order-instructions {
+        background-color: var(--color-card-bg-light);
+        border-radius: 20px;
+        padding: 2.5rem 2.5rem 3rem 2.5rem;
+        box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15);
+        transition: background-color var(--transition-speed),
+          box-shadow var(--transition-speed);
+        color: var(--color-text-light);
+      }
+      body.dark .order-instructions {
+        background-color: var(--color-card-bg-dark);
+        box-shadow: 0 10px 25px rgba(30, 58, 138, 0.6);
+        color: var(--color-text-dark);
+      }
+      .order-instructions h2 {
+        font-weight: 700;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+        text-align: center;
+        letter-spacing: 0.05em;
+      }
+      .order-steps {
+        list-style: none;
+        padding-left: 0;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .order-steps li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        font-weight: 500;
+        font-size: 1.1rem;
+        margin-bottom: 1.3rem;
+      }
+      .order-steps li .step-number {
+        background-color: var(--color-primary);
+        color: white;
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        user-select: none;
+        box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
+        transition: background-color var(--transition-speed);
+      }
+      body.dark .order-steps li .step-number {
+        background-color: var(--color-secondary);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.6);
+      }
+      .order-steps li:last-child {
+        margin-bottom: 0;
+      }
+
       /* Footer */
       footer {
         background-color: var(--color-primary);
@@ -534,10 +593,57 @@
           Testimoni terpercaya dari klien-klien saya yang puas dengan jasa saya.
         </p>
       </section>
+
+      <section class="order-instructions" aria-label="Cara Pemesanan">
+        <h2>Cara Pemesanan</h2>
+        <ol class="order-steps">
+          <li>
+            <div class="step-number">1</div>
+            <div>
+              <strong>Hubungi Saya via WhatsApp</strong><br />
+              Klik tombol <em>Pesan Sekarang</em> atau tombol WhatsApp hijau
+              yang ada di kanan bawah untuk menghubungi saya langsung.
+            </div>
+          </li>
+          <li>
+            <div class="step-number">2</div>
+            <div>
+              <strong>Diskusikan Kebutuhan Website Anda</strong><br />
+              Ceritakan tentang bisnis dan fitur yang Anda butuhkan pada
+              website. Saya akan memberi saran dan estimasi waktu pengerjaan
+              serta biaya.
+            </div>
+          </li>
+          <li>
+            <div class="step-number">3</div>
+            <div>
+              <strong>Tandatangani Kesepakatan & Pembayaran</strong><br />
+              Setelah menyetujui detail dan harga, Anda bisa melakukan
+              pembayaran DP sesuai kesepakatan agar proses pembuatan dimulai.
+            </div>
+          </li>
+          <li>
+            <div class="step-number">4</div>
+            <div>
+              <strong>Pengerjaan & Review</strong><br />
+              Saya mengerjakan website sesuai kesepakatan, selama proses akan
+              saya update dan bisa direview secara berkala.
+            </div>
+          </li>
+          <li>
+            <div class="step-number">5</div>
+            <div>
+              <strong>Serah Terima & Support</strong><br />
+              Setelah selesai dan Anda puas, saya menyerahkan website beserta
+              dokumentasi, dan siap support bila dibutuhkan.
+            </div>
+          </li>
+        </ol>
+      </section>
     </main>
 
     <footer>
-      &copy; 2024 Bimo Narmada Nasution &nbsp;&bull;&nbsp;
+      &copy; 2025 Bimo Narmada Nasution &nbsp;&bull;&nbsp;
       <a
         href="https://wa.me/6289663164143"
         target="_blank"
