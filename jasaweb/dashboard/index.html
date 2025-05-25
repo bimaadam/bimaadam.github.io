@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard - DevNarda</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
+
+      :root {
+        --color-primary: #1e3a8a;
+        --color-primary-light: #3b82f6;
+        --color-secondary: #2563eb;
+        --color-bg-light: #f9fafb;
+        --color-bg-dark: #121417;
+        --color-text-light: #1f2937;
+        --color-text-dark: #e0e7ff;
+        --color-card-bg-light: #fff;
+        --color-card-bg-dark: #1f2937;
+        --transition-speed: 0.3s;
+        --shadow-light: rgba(30, 58, 138, 0.3);
+        --shadow-dark: rgba(0, 0, 0, 0.7);
+        --font-family: "Poppins", sans-serif;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: var(--font-family);
+        background: var(--color-bg-light);
+        color: var(--color-text-light);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+      body.dark {
+        background: var(--color-bg-dark);
+        color: var(--color-text-dark);
+      }
+      a {
+        color: var(--color-primary-light);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .dashboard {
+        display: flex;
+        height: 100vh;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 260px;
+        background: var(--color-primary);
+        color: white;
+        display: flex;
+        flex-direction: column;
+      }
+      body.dark .sidebar {
+        background: var(--color-secondary);
+      }
+      .sidebar .brand {
+        font-weight: 700;
+        font-size: 1.6rem;
+        padding: 1.5rem 1.5rem;
+        user-select: none;
+        letter-spacing: 0.05em;
+      }
+      .sidebar nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar nav button {
+        background: none;
+        border: none;
+        color: white;
+        text-align: left;
+        padding: 1rem 1.8rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-left: 4px solid transparent;
+        transition: background-color 0.3s, border-color 0.3s;
+        user-select: none;
+      }
+      .sidebar nav button:hover,
+      .sidebar nav button.active {
+        background-color: var(--color-primary-light);
+        border-left-color: white;
+      }
+      body.dark .sidebar nav button:hover,
+      body.dark .sidebar nav button.active {
+        background-color: var(--color-primary-light);
+        border-left-color: white;
+      }
+
+      /* Main content */
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: var(--color-card-bg-light);
+        transition: background-color var(--transition-speed);
+      }
+      body.dark .content {
+        background: var(--color-card-bg-dark);
+      }
+      header {
+        flex: 0 0 60px;
+        background: white;
+        border-bottom: 1px solid #ddd;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--color-primary);
+        box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+      }
+      body.dark header {
+        background: var(--color-bg-dark);
+        border-color: #444;
+        color: var(--color-secondary);
+        box-shadow: 0 1px 6px rgb(0 0 0 / 0.8);
+      }
+
+      /* Dark mode toggle */
+      #darkModeToggle {
+        background: none;
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+        border-radius: 20px;
+        padding: 0.3rem 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      #darkModeToggle:hover {
+        background-color: var(--color-primary);
+        color: white;
+      }
+      body.dark #darkModeToggle {
+        border-color: var(--color-secondary);
+        color: var(--color-secondary);
+      }
+      body.dark #darkModeToggle:hover {
+        background-color: var(--color-secondary);
+        color: white;
+      }
+
+      /* Content pages container */
+      .pages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem 2rem;
+      }
+
+      /* Dashboard cards */
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .card {
+        background: var(--color-card-bg-light);
+        color: var(--color-text-light);
+        border-radius: 12px;
+        padding: 1.5rem 1.8rem;
+        flex: 1 1 250px;
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.12);
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+      }
+      body.dark .card {
+        background: var(--color-card-bg-dark);
+        color: var(--color-text-dark);
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.5);
+      }
+      .card h3 {
+        margin: 0 0 0.8rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+      .card .value {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--color-primary-light);
+      }
+      body.dark .card .value {
+        color: var(--color-secondary);
+      }
+
+      /* Chart container */
+      .chart-container {
+        background: var(--color-card-bg-light);
+        color: var(--color-text-light);
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.12);
+        margin-bottom: 2rem;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+      }
+      body.dark .chart-container {
+        background: var(--color-card-bg-dark);
+        color: var(--color-text-dark);
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.5);
+      }
+      .chart-container h2 {
+        margin-top: 0;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+      }
+      body.dark .chart-container h2 {
+        color: var(--color-secondary);
+      }
+
+      /* Table base styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-card-bg-light);
+        color: var(--color-text-light);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.12);
+        overflow: hidden;
+        margin-bottom: 2rem;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+      }
+      body.dark table {
+        background: var(--color-card-bg-dark);
+        color: var(--color-text-dark);
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.5);
+      }
+      thead {
+        background: var(--color-primary);
+        color: white;
+      }
+      body.dark thead {
+        background: var(--color-secondary);
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+      }
+      body.dark th,
+      body.dark td {
+        border-color: #444;
+      }
+      tbody tr:hover {
+        background-color: #e0e7ff;
+      }
+      body.dark tbody tr:hover {
+        background-color: #2563eb;
+      }
+      /* Buttons */
+      button.primary {
+        background-color: var(--color-primary);
+        border: none;
+        padding: 0.5rem 1rem;
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button.primary:hover {
+        background-color: var(--color-primary-light);
+      }
+      body.dark button.primary {
+        background-color: var(--color-secondary);
+      }
+      body.dark button.primary:hover {
+        background-color: #60a5fa;
+      }
+      button.danger {
+        background-color: #d14343;
+      }
+      button.danger:hover {
+        background-color: #b52929;
+      }
+
+      /* Form styles */
+      form {
+        max-width: 500px;
+        background: var(--color-card-bg-light);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.12);
+        color: var(--color-text-light);
+        transition: background-color 0.3s, color 0.3s;
+        margin-top: 1rem;
+      }
+      body.dark form {
+        background: var(--color-card-bg-dark);
+        color: var(--color-text-dark);
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.5);
+      }
+      form label {
+        display: block;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+      }
+      form input,
+      form select {
+        width: 100%;
+        padding: 0.6rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+      form input:focus,
+      form select:focus {
+        outline: none;
+        border-color: var(--color-primary);
+      }
+      body.dark form input,
+      body.dark form select {
+        background: #14253a;
+        border-color: #444;
+        color: var(--color-text-dark);
+      }
+      body.dark form input:focus,
+      body.dark form select:focus {
+        border-color: var(--color-secondary);
+      }
+
+      /* Chat styles */
+      .chat-container {
+        max-width: 700px;
+        background: var(--color-card-bg-light);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.12);
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+        overflow: hidden;
+        transition: background-color 0.3s;
+      }
+      body.dark .chat-container {
+        background: var(--color-card-bg-dark);
+        box-shadow: 0 10px 25px rgb(59 130 246 / 0.5);
+      }
+      .chat-messages {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+      }
+      .chat-message {
+        max-width: 70%;
+        margin-bottom: 1rem;
+        padding: 0.7rem 1rem;
+        border-radius: 12px;
+        background: var(--color-primary-light);
+        color: white;
+        font-size: 0.95rem;
+      }
+      .chat-message.admin {
+        background: var(--color-secondary);
+        margin-left: auto;
+      }
+      .chat-input {
+        padding: 0.75rem 1rem;
+        border-top: 1px solid #ddd;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .chat-input textarea {
+        flex: 1;
+        resize: none;
+        font-family: var(--font-family);
+        font-size: 1rem;
+        border-radius: 8px;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s;
+        min-height: 50px;
+      }
+      .chat-input textarea:focus {
+        outline: none;
+        border-color: var(--color-primary);
+      }
+      body.dark .chat-input textarea {
+        background: #14253a;
+        border-color: #444;
+        color: var(--color-text-dark);
+      }
+      body.dark .chat-input textarea:focus {
+        border-color: var(--color-secondary);
+      }
+      .chat-send-btn {
+        background: var(--color-primary);
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 0 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .chat-send-btn:hover {
+        background: var(--color-primary-light);
+      }
+      body.dark .chat-send-btn {
+        background: var(--color-secondary);
+      }
+      body.dark .chat-send-btn:hover {
+        background: #60a5fa;
+      }
+
+      /* Responsive */
+      @media (max-width: 800px) {
+        .dashboard {
+          flex-direction: column;
+        }
+        .sidebar {
+          flex-direction: row;
+          width: 100%;
+          height: 60px;
+          overflow-x: auto;
+          padding: 0;
+        }
+        .sidebar .brand {
+          display: none;
+        }
+        .sidebar nav {
+          flex-direction: row;
+          width: 100%;
+        }
+        .sidebar nav button {
+          flex-grow: 1;
+          text-align: center;
+          border-left: none;
+          border-bottom: 4px solid transparent;
+          padding: 0.75rem 0;
+        }
+        .sidebar nav button:hover,
+        .sidebar nav button.active {
+          border-left: none;
+          border-bottom: 4px solid white;
+        }
+        .content {
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard" role="main">
+      <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
+        <div class="brand">&gt;_DevNarda Admin</div>
+        <nav role="navigation" aria-label="Primary">
+          <button
+            class="nav-link active"
+            aria-current="page"
+            data-page="dashboard"
+          >
+            Dashboard
+          </button>
+          <button class="nav-link" data-page="clients">Clients</button>
+          <button class="nav-link" data-page="financials">Financials</button>
+          <button class="nav-link" data-page="chat">Chat</button>
+          <button class="nav-link" data-page="settings">Settings</button>
+          <button id="logout" class="nav-link">Logout</button>
+        </nav>
+      </aside>
+      <section class="content">
+        <header>
+          <h1 id="pageTitle">Dashboard</h1>
+          <button id="darkModeToggle" aria-label="Toggle dark mode">
+            Dark Mode
+          </button>
+        </header>
+        <section class="pages" id="pages">
+          <!-- Dashboard Page -->
+          <section id="dashboard" class="page" tabindex="0">
+            <div class="cards" aria-label="Key dashboard statistics">
+              <article class="card" aria-describedby="usersDesc">
+                <h3>Active Users</h3>
+                <div class="value" id="activeUsers">0</div>
+                <p id="usersDesc">Jumlah pengguna aktif saat ini.</p>
+              </article>
+              <article class="card" aria-describedby="ordersDesc">
+                <h3>Orders Today</h3>
+                <div class="value" id="ordersToday">0</div>
+                <p id="ordersDesc">Jumlah pesanan diterima hari ini.</p>
+              </article>
+              <article class="card" aria-describedby="revenueDesc">
+                <h3>Revenue Today</h3>
+                <div class="value" id="revenueToday">Rp0</div>
+                <p id="revenueDesc">Pendapatan hari ini (simulasi).</p>
+              </article>
+            </div>
+            <div
+              class="chart-container"
+              aria-label="User activity chart"
+              role="img"
+            >
+              <h2>Pengguna Online Per Menit</h2>
+              <canvas
+                id="usersChart"
+                width="600"
+                height="320"
+                aria-hidden="true"
+              ></canvas>
+            </div>
+            <div aria-label="Recent orders">
+              <h2>Pesanan Terbaru</h2>
+              <table aria-describedby="ordersDesc" role="grid">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Nama Klien</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Clients Page -->
+          <section
+            id="clients"
+            class="page"
+            hidden
+            tabindex="0"
+            aria-label="Kelola Klien"
+          >
+            <h2>Kelola Klien</h2>
+            <form id="clientForm" aria-label="Form tambah atau edit klien">
+              <input type="hidden" id="clientId" />
+              <label for="clientName">Nama Klien:</label>
+              <input type="text" id="clientName" required />
+              <label for="clientEmail">Email:</label>
+              <input type="email" id="clientEmail" required />
+              <label for="clientPhone">Nomor Telepon:</label>
+              <input type="tel" id="clientPhone" required pattern="\\+?\\d+" />
+              <button type="submit" class="primary" id="clientSubmitBtn">
+                Tambah Klien
+              </button>
+              <button type="button" id="clientCancelBtn" hidden>
+                Batalkan
+              </button>
+            </form>
+            <table aria-label="Daftar klien">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Email</th>
+                  <th>Telepon</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="clientsTableBody"></tbody>
+            </table>
+          </section>
+
+          <!-- Financials Page -->
+          <section
+            id="financials"
+            class="page"
+            hidden
+            tabindex="0"
+            aria-label="Kelola Data Keuangan"
+          >
+            <h2>Kelola Data Keuangan</h2>
+            <form
+              id="financeForm"
+              aria-label="Form tambah atau edit transaksi keuangan"
+            >
+              <input type="hidden" id="financeId" />
+              <label for="financeDate">Tanggal:</label>
+              <input type="date" id="financeDate" required />
+              <label for="financeDesc">Deskripsi:</label>
+              <input type="text" id="financeDesc" required />
+              <label for="financeAmount">Jumlah (Rp):</label>
+              <input
+                type="number"
+                id="financeAmount"
+                required
+                min="0"
+                step="1000"
+              />
+              <select id="financeType" required aria-label="Tipe transaksi">
+                <option value="">Pilih Tipe</option>
+                <option value="income">Pemasukan</option>
+                <option value="expense">Pengeluaran</option>
+              </select>
+              <button type="submit" class="primary" id="financeSubmitBtn">
+                Tambah Transaksi
+              </button>
+              <button type="button" id="financeCancelBtn" hidden>
+                Batalkan
+              </button>
+            </form>
+            <table aria-label="Daftar transaksi keuangan">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Deskripsi</th>
+                  <th>Tipe</th>
+                  <th>Jumlah (Rp)</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="financialsTableBody"></tbody>
+            </table>
+          </section>
+
+          <!-- Chat Page -->
+          <section
+            id="chat"
+            class="page"
+            hidden
+            tabindex="0"
+            aria-label="Chat dengan Klien"
+          >
+            <h2>Chat dengan Klien</h2>
+            <div
+              class="chat-container"
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions"
+            >
+              <div class="chat-messages" id="chatMessages" tabindex="0"></div>
+              <form id="chatForm" aria-label="Form kirim pesan">
+                <textarea
+                  id="chatInput"
+                  placeholder="Tulis pesan..."
+                  rows="3"
+                  required
+                ></textarea>
+                <button
+                  type="submit"
+                  class="chat-send-btn"
+                  aria-label="Kirim pesan"
+                >
+                  Kirim
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <!-- Settings Page -->
+          <section
+            id="settings"
+            class="page"
+            hidden
+            tabindex="0"
+            aria-label="Pengaturan Admin"
+          >
+            <h2>Pengaturan</h2>
+            <p>Atur preferensi dan logout admin.</p>
+            <button id="logoutBtn" class="primary">Logout</button>
+          </section>
+        </section>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Utility for currency formatting
+      function formatCurrency(num) {
+        return "Rp" + num.toLocaleString("id-ID");
+      }
+
+      // Theme toggle
+      const body = document.body;
+      const darkModeToggle = document.getElementById("darkModeToggle");
+      darkModeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark");
+        if (body.classList.contains("dark")) {
+          darkModeToggle.textContent = "Light Mode";
+          localStorage.setItem("darkMode", "enabled");
+        } else {
+          darkModeToggle.textContent = "Dark Mode";
+          localStorage.setItem("darkMode", "disabled");
+        }
+      });
+      if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark");
+        darkModeToggle.textContent = "Light Mode";
+      } else {
+        darkModeToggle.textContent = "Dark Mode";
+      }
+
+      // Navigation & page switching
+      const navButtons = document.querySelectorAll(
+        ".sidebar nav button.nav-link"
+      );
+      const pages = document.querySelectorAll(".page");
+      const pageTitle = document.getElementById("pageTitle");
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.id === "logout") return;
+          navButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const pageName = btn.getAttribute("data-page");
+          pages.forEach((p) => (p.hidden = p.id !== pageName));
+          pageTitle.textContent = btn.textContent;
+        });
+      });
+
+      // Logout button
+      document.getElementById("logout").addEventListener("click", () => {
+        alert("Logout functionality is not implemented in this demo.");
+      });
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        alert("Logout functionality is not implemented in this demo.");
+      });
+
+      // Simulated stats for dashboard
+      let activeUsers = 120;
+      let ordersToday = 15;
+      let revenueToday = 7500000;
+
+      // DOM refs
+      const activeUsersEl = document.getElementById("activeUsers");
+      const ordersTodayEl = document.getElementById("ordersToday");
+      const revenueTodayEl = document.getElementById("revenueToday");
+
+      function updateStats() {
+        activeUsers += Math.floor(Math.random() * 5 - 2);
+        if (activeUsers < 0) activeUsers = 0;
+        ordersToday += Math.max(0, Math.floor(Math.random() * 3));
+        revenueToday += Math.max(0, Math.floor(Math.random() * 200000));
+
+        activeUsersEl.textContent = activeUsers;
+        ordersTodayEl.textContent = ordersToday;
+        revenueTodayEl.textContent = formatCurrency(revenueToday);
+      }
+
+      setInterval(updateStats, 15000);
+      updateStats();
+
+      // Chart setup: users online
+      const ctx = document.getElementById("usersChart").getContext("2d");
+      const maxPoints = 12;
+      const labels = [];
+      const dataPoints = [];
+
+      function currentTimeLabel() {
+        const d = new Date();
+        return (
+          d.getHours().toString().padStart(2, "0") +
+          ":" +
+          d.getMinutes().toString().padStart(2, "0")
+        );
+      }
+
+      for (let i = 0; i < maxPoints; i++) {
+        labels.unshift("");
+        dataPoints.unshift(0);
+      }
+
+      const usersChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Pengguna Online",
+              data: dataPoints,
+              borderColor: "rgba(59,130,246,0.8)",
+              backgroundColor: "rgba(59,130,246,0.3)",
+              fill: true,
+              tension: 0.25,
+              pointRadius: 3,
+              pointBackgroundColor: "rgba(30,64,175,1)",
+              borderWidth: 3,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          animation: false,
+          scales: {
+            y: { beginAtZero: true, max: 200, ticks: { stepSize: 50 } },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: body.classList.contains("dark") ? "#e0e7ff" : "#1f2937",
+              },
+            },
+          },
+        },
+      });
+
+      function addUserChartData() {
+        if (usersChart.data.labels.length >= maxPoints) {
+          usersChart.data.labels.shift();
+          usersChart.data.datasets[0].data.shift();
+        }
+        usersChart.data.labels.push(currentTimeLabel());
+        usersChart.data.datasets[0].data.push(
+          50 + Math.floor(Math.random() * 100)
+        );
+        usersChart.update();
+      }
+
+      setInterval(addUserChartData, 5000);
+      addUserChartData();
+
+      // Recent orders (Demo)
+      const ordersData = [
+        {
+          id: "#1001",
+          client: "PT Maju Jaya",
+          date: "2024-03-30",
+          status: "Completed",
+        },
+        {
+          id: "#1002",
+          client: "Klinik Sehat Selalu",
+          date: "2024-03-30",
+          status: "Pending",
+        },
+        {
+          id: "#1003",
+          client: "CV Abadi Teknologi",
+          date: "2024-03-29",
+          status: "In Progress",
+        },
+        {
+          id: "#1004",
+          client: "RSUD Sejahtera",
+          date: "2024-03-28",
+          status: "Completed",
+        },
+        {
+          id: "#1005",
+          client: "Bisnis Online Shop",
+          date: "2024-03-28",
+          status: "Cancelled",
+        },
+      ];
+      const ordersTableBody = document.getElementById("ordersTableBody");
+      function renderOrders() {
+        ordersTableBody.innerHTML = "";
+        ordersData.forEach((o) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${o.id}</td>
+        <td>${o.client}</td>
+        <td>${o.date}</td>
+        <td>${o.status}</td>
+      `;
+          ordersTableBody.appendChild(tr);
+        });
+      }
+      renderOrders();
+
+      // Client Storage and CRUD
+      let clients = JSON.parse(localStorage.getItem("devnarda_clients")) || [];
+      const clientForm = document.getElementById("clientForm");
+      const clientsTableBody = document.getElementById("clientsTableBody");
+
+      function renderClients() {
+        clientsTableBody.innerHTML = "";
+        clients.forEach((client, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${client.name}</td>
+        <td>${client.email}</td>
+        <td>${client.phone}</td>
+        <td>
+          <button class="primary" data-index="${index}" data-action="edit">Edit</button>
+          <button class="danger" data-index="${index}" data-action="delete">Delete</button>
+        </td>
+      `;
+          clientsTableBody.appendChild(tr);
+        });
+      }
+
+      function saveClients() {
+        localStorage.setItem("devnarda_clients", JSON.stringify(clients));
+      }
+
+      function resetClientForm() {
+        clientForm.clientId.value = "";
+        clientForm.clientName.value = "";
+        clientForm.clientEmail.value = "";
+        clientForm.clientPhone.value = "";
+        clientForm.querySelector("#clientSubmitBtn").textContent =
+          "Tambah Klien";
+        clientForm.querySelector("#clientCancelBtn").hidden = true;
+      }
+
+      clientForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const id = clientForm.clientId.value;
+        const name = clientForm.clientName.value.trim();
+        const email = clientForm.clientEmail.value.trim();
+        const phone = clientForm.clientPhone.value.trim();
+        if (!name || !email || !phone) return alert("Semua field wajib diisi.");
+
+        if (id) {
+          // edit mode
+          clients[id] = { name, email, phone };
+        } else {
+          clients.push({ name, email, phone });
+        }
+        saveClients();
+        renderClients();
+        resetClientForm();
+      });
+
+      clientsTableBody.addEventListener("click", (e) => {
+        if (e.target.tagName !== "BUTTON") return;
+        const index = e.target.dataset.index;
+        const action = e.target.dataset.action;
+        if (action === "edit") {
+          const client = clients[index];
+          clientForm.clientId.value = index;
+          clientForm.clientName.value = client.name;
+          clientForm.clientEmail.value = client.email;
+          clientForm.clientPhone.value = client.phone;
+          clientForm.querySelector("#clientSubmitBtn").textContent =
+            "Update Klien";
+          clientForm.querySelector("#clientCancelBtn").hidden = false;
+        } else if (action === "delete") {
+          if (confirm("Yakin ingin menghapus klien ini?")) {
+            clients.splice(index, 1);
+            saveClients();
+            renderClients();
+          }
+        }
+      });
+
+      clientForm
+        .querySelector("#clientCancelBtn")
+        .addEventListener("click", (e) => {
+          resetClientForm();
+        });
+
+      renderClients();
+
+      // Financial Storage and CRUD
+      let financials =
+        JSON.parse(localStorage.getItem("devnarda_financials")) || [];
+      const financeForm = document.getElementById("financeForm");
+      const financialsTableBody = document.getElementById(
+        "financialsTableBody"
+      );
+
+      function renderFinancials() {
+        financialsTableBody.innerHTML = "";
+        financials.forEach((rec, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${rec.date}</td>
+        <td>${rec.desc}</td>
+        <td>${rec.type === "income" ? "Pemasukan" : "Pengeluaran"}</td>
+        <td>${formatCurrency(rec.amount)}</td>
+        <td>
+          <button class="primary" data-index="${index}" data-action="edit">Edit</button>
+          <button class="danger" data-index="${index}" data-action="delete">Delete</button>
+        </td>
+      `;
+          financialsTableBody.appendChild(tr);
+        });
+      }
+
+      function saveFinancials() {
+        localStorage.setItem("devnarda_financials", JSON.stringify(financials));
+      }
+
+      function resetFinanceForm() {
+        financeForm.financeId.value = "";
+        financeForm.financeDate.value = "";
+        financeForm.financeDesc.value = "";
+        financeForm.financeAmount.value = "";
+        financeForm.financeType.value = "";
+        financeForm.querySelector("#financeSubmitBtn").textContent =
+          "Tambah Transaksi";
+        financeForm.querySelector("#financeCancelBtn").hidden = true;
+      }
+
+      financeForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const id = financeForm.financeId.value;
+        const date = financeForm.financeDate.value;
+        const desc = financeForm.financeDesc.value.trim();
+        const amount = Number(financeForm.financeAmount.value);
+        const type = financeForm.financeType.value;
+        if (!date || !desc || !amount || !type)
+          return alert("Semua field wajib diisi dan valid.");
+
+        if (id) {
+          financials[id] = { date, desc, amount, type };
+        } else {
+          financials.push({ date, desc, amount, type });
+        }
+        saveFinancials();
+        renderFinancials();
+        resetFinanceForm();
+      });
+
+      financialsTableBody.addEventListener("click", (e) => {
+        if (e.target.tagName !== "BUTTON") return;
+        const index = e.target.dataset.index;
+        const action = e.target.dataset.action;
+        if (action === "edit") {
+          const rec = financials[index];
+          financeForm.financeId.value = index;
+          financeForm.financeDate.value = rec.date;
+          financeForm.financeDesc.value = rec.desc;
+          financeForm.financeAmount.value = rec.amount;
+          financeForm.financeType.value = rec.type;
+          financeForm.querySelector("#financeSubmitBtn").textContent =
+            "Update Transaksi";
+          financeForm.querySelector("#financeCancelBtn").hidden = false;
+        } else if (action === "delete") {
+          if (confirm("Yakin ingin menghapus transaksi ini?")) {
+            financials.splice(index, 1);
+            saveFinancials();
+            renderFinancials();
+          }
+        }
+      });
+
+      financeForm
+        .querySelector("#financeCancelBtn")
+        .addEventListener("click", () => {
+          resetFinanceForm();
+        });
+
+      renderFinancials();
+
+      // Chat feature with localStorage simple simulation
+      const chatMessagesEl = document.getElementById("chatMessages");
+      const chatForm = document.getElementById("chatForm");
+      const chatInput = document.getElementById("chatInput");
+
+      let chatMessages =
+        JSON.parse(localStorage.getItem("devnarda_chat_messages")) || [];
+
+      function renderChat() {
+        chatMessagesEl.innerHTML = "";
+        chatMessages.forEach((msg) => {
+          const div = document.createElement("div");
+          div.className =
+            "chat-message " + (msg.sender === "admin" ? "admin" : "client");
+          div.textContent = msg.text;
+          chatMessagesEl.appendChild(div);
+        });
+        chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+      }
+      renderChat();
+
+      chatForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const text = chatInput.value.trim();
+        if (!text) return;
+        chatMessages.push({ sender: "admin", text });
+        localStorage.setItem(
+          "devnarda_chat_messages",
+          JSON.stringify(chatMessages)
+        );
+        renderChat();
+        chatInput.value = "";
+
+        // Simulate client reply after 1-3 sec
+        setTimeout(() => {
+          const replies = [
+            "Terima kasih atas pesannya!",
+            "Saya akan segera hubungi Anda.",
+            "Apakah ada pertanyaan lain?",
+            "Sedang memproses permintaan Anda...",
+          ];
+          const replyText = replies[Math.floor(Math.random() * replies.length)];
+          chatMessages.push({ sender: "client", text: replyText });
+          localStorage.setItem(
+            "devnarda_chat_messages",
+            JSON.stringify(chatMessages)
+          );
+          renderChat();
+        }, 1000 + Math.random() * 2000);
+      });
+    </script>
+  </body>
+</html>
