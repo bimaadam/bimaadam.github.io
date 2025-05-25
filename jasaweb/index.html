@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bimo Narmada Nasution - Jasa Pembuatan Website Profesional</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
+
+      :root {
+        --color-primary: #1e3a8a; /* Blue accent */
+        --color-secondary: #3b82f6;
+        --color-accent: #0ea5e9; /* lighter blue accent */
+        --color-bg-light: #f9fafb;
+        --color-bg-dark: #121417;
+        --color-text-light: #1f2937;
+        --color-text-dark: #e0e7ff;
+        --color-card-bg-light: #ffffff;
+        --color-card-bg-dark: #1f2937;
+        --color-gradient-light: linear-gradient(135deg, #3b82f6, #1e3a8a);
+        --color-gradient-dark: linear-gradient(135deg, #3b82f6cc, #1e3a8acc);
+        --transition-speed: 0.3s;
+        --shadow-light: rgba(30, 58, 138, 0.3);
+        --shadow-dark: rgba(0, 0, 0, 0.7);
+      }
+
+      /* Reset & base */
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: var(--color-bg-light);
+        color: var(--color-text-light);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      body.dark {
+        background-color: var(--color-bg-dark);
+        color: var(--color-text-dark);
+      }
+
+      /* Scroll smooth for anchor links */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Header */
+      header {
+        padding: 1.5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e0e0e0;
+        background-color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: background-color var(--transition-speed);
+      }
+      body.dark header {
+        border-color: #333;
+        background-color: var(--color-bg-dark);
+        box-shadow: 0 2px 12px var(--shadow-dark);
+      }
+      .logo {
+        font-weight: 700;
+        font-size: 1.35rem;
+        color: var(--color-primary);
+        user-select: none;
+        letter-spacing: 0.06em;
+        text-shadow: 0 0 8px var(--color-primary);
+      }
+
+      .dark-mode-toggle {
+        background: none;
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+        padding: 0.4rem 1.1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed), box-shadow var(--transition-speed);
+      }
+      .dark-mode-toggle:hover {
+        background-color: var(--color-primary);
+        color: white;
+        box-shadow: 0 4px 12px var(--shadow-light);
+      }
+      body.dark .dark-mode-toggle {
+        border-color: var(--color-secondary);
+        color: var(--color-secondary);
+      }
+      body.dark .dark-mode-toggle:hover {
+        background-color: var(--color-secondary);
+        color: white;
+        box-shadow: 0 4px 14px rgba(59, 130, 246, 0.6);
+      }
+
+      main {
+        flex: 1;
+        max-width: 960px;
+        margin: 2rem auto 3rem;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3.5rem;
+        scroll-margin-top: 80px;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: var(--color-gradient-light);
+        color: white;
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: center;
+        box-shadow: 0 12px 30px rgba(30, 58, 138, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+      body.dark .hero {
+        background: var(--color-gradient-dark);
+        box-shadow: 0 14px 40px rgba(30, 58, 138, 0.8);
+      }
+      .hero-content {
+        z-index: 2;
+      }
+      .hero h1 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 2.8rem;
+        line-height: 1.15;
+        text-shadow: 0 0 14px rgb(0 0 0 / 0.3);
+        animation: fadeInUp 1s ease forwards;
+      }
+      .hero p.lead {
+        font-weight: 500;
+        font-size: 1.25rem;
+        margin: 1rem 0 2rem;
+        max-width: 90%;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+        animation: fadeInUp 1s 0.3s ease forwards;
+      }
+      .hero .cta-button {
+        background-color: white;
+        color: var(--color-primary);
+        font-weight: 700;
+        padding: 1rem 2.75rem;
+        border-radius: 30px;
+        box-shadow: 0 12px 20px rgba(255 255 255 / 0.35);
+        transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        width: fit-content;
+        animation: fadeInUp 1s 0.6s ease forwards;
+      }
+      .hero .cta-button:hover,
+      .hero .cta-button:focus {
+        background-color: var(--color-secondary);
+        color: white;
+        box-shadow: 0 18px 28px rgba(59, 130, 246, 0.7);
+        outline: none;
+      }
+      .hero-illustration {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        justify-self: center;
+        animation: fadeIn 2s 0.8s ease forwards;
+      }
+      .hero-illustration svg {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.15));
+      }
+
+      /* Features Section */
+      .features {
+        display: grid;
+        gap: 1.8rem 2.8rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        margin-top: 1rem;
+      }
+
+      .feature-card {
+        background-color: var(--color-card-bg-light);
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(30, 58, 138, 0.12);
+        padding: 2rem 1.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: background-color var(--transition-speed),
+          box-shadow var(--transition-speed);
+      }
+      body.dark .feature-card {
+        background-color: var(--color-card-bg-dark);
+        box-shadow: 0 8px 20px rgba(30, 58, 138, 0.5);
+      }
+      .feature-icon {
+        font-size: 3rem;
+        color: var(--color-primary);
+        margin-bottom: 1rem;
+        transition: color var(--transition-speed);
+      }
+      body.dark .feature-icon {
+        color: var(--color-secondary);
+      }
+      .feature-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+      .feature-desc {
+        font-weight: 500;
+        font-size: 1rem;
+        color: #334155;
+      }
+      body.dark .feature-desc {
+        color: #d1d5db;
+      }
+      .feature-card:hover .feature-icon {
+        color: var(--color-secondary);
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        background-color: var(--color-card-bg-light);
+        border-radius: 20px;
+        padding: 2.5rem 2.5rem 3rem 2.5rem;
+        box-shadow: 0 8px 15px rgba(30, 58, 138, 0.12);
+        color: inherit;
+        transition: background-color var(--transition-speed),
+          box-shadow var(--transition-speed);
+        max-width: 100%;
+      }
+      body.dark .testimonials {
+        background-color: var(--color-card-bg-dark);
+        box-shadow: 0 8px 25px rgba(30, 58, 138, 0.65);
+      }
+      .testimonials h2 {
+        margin-top: 0;
+        font-weight: 700;
+        font-size: 2rem;
+        margin-bottom: 1.3rem;
+        color: var(--color-primary);
+        text-align: center;
+        letter-spacing: 0.05em;
+      }
+      .testimonial-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        margin: 0;
+        padding: 0;
+      }
+      .testimonial-item {
+        background: var(--color-gradient-light);
+        color: white;
+        padding: 1.8rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 24px rgba(30, 58, 138, 0.4);
+        font-style: italic;
+        position: relative;
+        transition: background var(--transition-speed);
+      }
+      body.dark .testimonial-item {
+        background: var(--color-gradient-dark);
+        box-shadow: 0 14px 30px rgba(30, 58, 138, 0.8);
+      }
+      .testimonial-item::before {
+        content: "“";
+        font-size: 3.5rem;
+        font-weight: 700;
+        position: absolute;
+        left: 1rem;
+        top: 0.1rem;
+        opacity: 0.25;
+      }
+      .testimonial-content {
+        margin-left: 1.3rem;
+      }
+      .testimonial-author {
+        margin-top: 1rem;
+        font-weight: 700;
+        font-size: 1rem;
+        text-align: right;
+        opacity: 0.85;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--color-primary);
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+        font-weight: 500;
+        font-size: 0.95rem;
+        user-select: none;
+      }
+      body.dark footer {
+        background-color: var(--color-secondary);
+        color: #f1f5f9;
+      }
+
+      /* Floating WhatsApp */
+      .floating-wa {
+        position: fixed;
+        bottom: 1.8rem;
+        right: 1.8rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #25d366;
+        box-shadow: 0 8px 15px rgba(37, 211, 102, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        z-index: 1000;
+      }
+      .floating-wa:hover {
+        background-color: #128c4a;
+        box-shadow: 0 12px 20px rgba(18, 140, 74, 0.6);
+      }
+      .floating-wa svg {
+        fill: white;
+        width: 30px;
+        height: 30px;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        main {
+          margin: 1.5rem 1rem 3rem;
+        }
+        .hero {
+          display: flex;
+          flex-direction: column-reverse;
+          padding: 2rem 1.2rem;
+          border-radius: 20px;
+        }
+        .hero-illustration {
+          max-width: 100%;
+          margin-bottom: 1.75rem;
+        }
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+        .hero p.lead {
+          font-size: 1.1rem;
+          max-width: 100%;
+        }
+        .features {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1.5rem 2rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 1.75rem;
+        }
+        .hero p.lead {
+          font-size: 1rem;
+        }
+        .dark-mode-toggle {
+          padding: 0.35rem 0.9rem;
+          font-size: 0.9rem;
+        }
+        .feature-card {
+          padding: 1.5rem 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo" aria-label="Logo">Bimo Narmada Nasution</div>
+      <button
+        class="dark-mode-toggle"
+        id="darkModeToggle"
+        aria-label="Toggle dark mode"
+      >
+        Mode Gelap
+      </button>
+    </header>
+    <main>
+      <section class="hero" aria-label="Hero Section: intro and call to action">
+        <div class="hero-content">
+          <h1>Jasa Pembuatan Website Profesional & Aesthetic</h1>
+          <p class="lead">
+            Hai, saya <strong>Bimo Narmada Nasution</strong>, Fullstack
+            Developer. Saya menyediakan jasa pembuatan website dengan tampilan
+            modern, aesthetic, dan mobile responsive agar bisnis Anda makin
+            berkembang dan terpercaya.
+          </p>
+          <button class="cta-button" id="orderBtn">Pesan Sekarang</button>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <!-- Modern abstract SVG shape illustration -->
+          <svg
+            viewBox="0 0 640 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#1e3a8a" />
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#grad1)"
+              d="M416 32c35.3 0 64 28.7 64 64 0 21.9-11.5 41-28.8 52.5-19 13.3-30 42.5-30 42.5s-42 28-56 34c-18 9-47-9-47-9-9-29 9-53 9-53 25-23 22-44 22-44 20-21 40-32 90-32z"
+            />
+            <circle
+              cx="320"
+              cy="320"
+              r="160"
+              fill="url(#grad1)"
+              opacity="0.3"
+            />
+          </svg>
+        </div>
+      </section>
+
+      <section class="features" aria-label="Mengapa Memilih Jasa Kami - Fitur">
+        <article
+          class="feature-card"
+          tabindex="0"
+          aria-labelledby="feat1-title"
+        >
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3 class="feature-title" id="feat1-title">Cepat & Efisien</h3>
+          <p class="feature-desc">
+            Website Anda selesai tepat waktu dengan kualitas tinggi,
+            memaksimalkan kecepatan dan efisiensi dalam pengembangan.
+          </p>
+        </article>
+        <article
+          class="feature-card"
+          tabindex="0"
+          aria-labelledby="feat2-title"
+        >
+          <div class="feature-icon" aria-hidden="true">📱</div>
+          <h3 class="feature-title" id="feat2-title">Mobile Responsive</h3>
+          <p class="feature-desc">
+            Desain yang optimal di berbagai perangkat, memastikan tampilan
+            website tetap aesthetic dan mudah diakses dari mana saja.
+          </p>
+        </article>
+        <article
+          class="feature-card"
+          tabindex="0"
+          aria-labelledby="feat3-title"
+        >
+          <div class="feature-icon" aria-hidden="true">🔧</div>
+          <h3 class="feature-title" id="feat3-title">Custom & Fleksibel</h3>
+          <p class="feature-desc">
+            Solusi website yang dapat disesuaikan dengan kebutuhan bisnis Anda,
+            memberikan fleksibilitas maksimal.
+          </p>
+        </article>
+      </section>
+
+      <section class="testimonials" aria-label="Testimoni dari Perusahaan">
+        <h2>Perusahaan yang sudah saya kerjakan</h2>
+        <ul class="testimonial-list" role="list">
+          <li class="testimonial-item" tabindex="0">
+            <p class="testimonial-content">
+              "Terima kasih atas website profesional yang membantu Klinik Setia
+              Medika meningkatkan kepercayaan pasien dan mempermudah layanan
+              online."
+            </p>
+            <footer class="testimonial-author">– Klinik Setia Medika</footer>
+          </li>
+          <li class="testimonial-item" tabindex="0">
+            <p class="testimonial-content">
+              "CV Abyzain Jaya Teknika kini memiliki website yang modern dan
+              responsif, berkat jasa Bimo dengan hasil memuaskan."
+            </p>
+            <footer class="testimonial-author">
+              – CV Abyzain Jaya Teknika
+            </footer>
+          </li>
+          <li class="testimonial-item" tabindex="0">
+            <p class="testimonial-content">
+              "Manajemen alat kesehatan di RSUD semakin efisien dengan situs web
+              custom yang fleksibel dan mudah diatur."
+            </p>
+            <footer class="testimonial-author">
+              – Manajemen Alat Kesehatan di RSUD
+            </footer>
+          </li>
+        </ul>
+        <p
+          style="
+            margin-top: 1.3rem;
+            font-style: italic;
+            text-align: center;
+            opacity: 0.75;
+          "
+        >
+          Testimoni terpercaya dari klien-klien saya yang puas dengan jasa saya.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      &copy; 2024 Bimo Narmada Nasution &nbsp;&bull;&nbsp;
+      <a
+        href="https://wa.me/6289663164143"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: #cbd5e1; text-decoration: underline"
+        >Hubungi Saya via WhatsApp</a
+      >
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a
+      href="https://wa.me/6289663164143"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Hubungi via WhatsApp"
+      class="floating-wa"
+      title="Hubungi via WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          d="M20.52 3.48A11.816 11.816 0 0012 0C5.372 0 0 5.372 0 12a11.952 11.952 0 002.203 6.39L0 24l5.878-2.193A11.95 11.95 0 0012 24c6.628 0 12-5.372 12-12 0-3.197-1.246-6.199-3.48-8.52zm-8.52 17.1a9.822 9.822 0 01-5.073-1.43l-.363-.22-3.483 1.296 1.3-3.394-.236-.35a9.826 9.826 0 1110.555 4.098zm5.254-7.324c-.288-.145-1.7-.84-1.963-.935-.263-.1-.454-.145-.645.145s-.74.935-.91 1.128c-.167.19-.335.213-.62.072-.288-.145-1.217-.448-2.318-1.438-.857-.764-1.435-1.707-1.603-1.997-.167-.29-.018-.446.127-.59.13-.129.288-.335.432-.503.145-.167.193-.29.288-.483.1-.191.05-.36-.025-.505-.075-.146-.645-1.55-.883-2.13-.232-.553-.467-.48-.645-.49l-.55-.01c-.19 0-.498.072-.76.36s-1 1.02-1 2.48 1.025 2.875 1.167 3.075c.14.191 2.018 3.077 4.9 4.31.683.293 1.216.468 1.63.6.683.214 1.305.184 1.797.112.55-.08 1.7-.693 1.94-1.363.24-.67.24-1.25.168-1.363-.072-.11-.263-.181-.55-.326z"
+        />
+      </svg>
+    </a>
+
+    <script>
+      const darkToggleBtn = document.getElementById("darkModeToggle");
+      const bodyElement = document.body;
+
+      // Load saved preference
+      if (localStorage.getItem("darkMode") === "enabled") {
+        bodyElement.classList.add("dark");
+        darkToggleBtn.textContent = "Mode Terang";
+      }
+
+      darkToggleBtn.addEventListener("click", () => {
+        bodyElement.classList.toggle("dark");
+        if (bodyElement.classList.contains("dark")) {
+          darkToggleBtn.textContent = "Mode Terang";
+          localStorage.setItem("darkMode", "enabled");
+        } else {
+          darkToggleBtn.textContent = "Mode Gelap";
+          localStorage.setItem("darkMode", "disabled");
+        }
+      });
+
+      // "Pesan Sekarang" button action opens WhatsApp link in new tab
+      document.getElementById("orderBtn").addEventListener("click", () => {
+        window.open("https://wa.me/6289663164143", "_blank");
+      });
+    </script>
+  </body>
+</html>
