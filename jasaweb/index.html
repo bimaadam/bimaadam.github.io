@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bimo Narmada Nasution - Jasa Pembuatan Website Profesional</title>
+    <title>&gt;_DevNarda - Jasa Pembuatan Website Profesional</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
 
@@ -117,7 +117,7 @@
         background: var(--color-gradient-light);
         color: white;
         border-radius: 20px;
-        padding: 3rem 2rem;
+        padding: 3rem 2rem 2rem;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
@@ -132,6 +132,8 @@
       }
       .hero-content {
         z-index: 2;
+        display: flex;
+        flex-direction: column;
       }
       .hero h1 {
         margin: 0;
@@ -141,14 +143,27 @@
         text-shadow: 0 0 14px rgb(0 0 0 / 0.3);
         animation: fadeInUp 1s ease forwards;
       }
-      .hero p.lead {
+
+      /* About DevNarda Section */
+      .about-devnarda {
+        background-color: rgba(255 255 255 / 0.85);
+        color: var(--color-primary);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
+        padding: 1.8rem 2.2rem;
+        margin: 1.5rem 0 2rem 0;
+        font-size: 1.2rem;
         font-weight: 500;
-        font-size: 1.25rem;
-        margin: 1rem 0 2rem;
+        line-height: 1.6;
         max-width: 90%;
-        text-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
-        animation: fadeInUp 1s 0.3s ease forwards;
+        animation: fadeInUp 1.2s ease forwards;
       }
+      body.dark .about-devnarda {
+        background-color: rgba(59 130 246 / 0.1);
+        color: var(--color-text-dark);
+        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.35);
+      }
+
       .hero .cta-button {
         background-color: white;
         color: var(--color-primary);
@@ -158,6 +173,7 @@
         box-shadow: 0 12px 20px rgba(255 255 255 / 0.35);
         transition: box-shadow 0.3s ease, background-color 0.3s ease;
         width: fit-content;
+        align-self: flex-start;
         animation: fadeInUp 1s 0.6s ease forwards;
       }
       .hero .cta-button:hover,
@@ -355,7 +371,7 @@
         margin-bottom: 0;
       }
 
-      /* Hubungi Admin & Agent Section */
+      /* Contact Admin Section */
       .contact-section {
         background-color: var(--color-card-bg-light);
         padding: 2.5rem 2rem;
@@ -518,25 +534,19 @@
         .hero h1 {
           font-size: 2.2rem;
         }
-        .hero p.lead {
-          font-size: 1.1rem;
-          max-width: 100%;
-        }
         .features {
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           gap: 1.5rem 2rem;
         }
         .contact-section {
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem 1.5rem;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2rem;
+          justify-items: center;
         }
       }
       @media (max-width: 600px) {
         .hero h1 {
           font-size: 1.75rem;
-        }
-        .hero p.lead {
-          font-size: 1rem;
         }
         .dark-mode-toggle {
           padding: 0.35rem 0.9rem;
@@ -554,7 +564,7 @@
   </head>
   <body>
     <header>
-      <div class="logo" aria-label="Logo">Bimo Narmada Nasution</div>
+      <div class="logo" aria-label="Logo">&gt;_DevNarda</div>
       <button
         class="dark-mode-toggle"
         id="darkModeToggle"
@@ -567,12 +577,16 @@
       <section class="hero" aria-label="Hero Section: intro and call to action">
         <div class="hero-content">
           <h1>Jasa Pembuatan Website Profesional & Aesthetic</h1>
-          <p class="lead">
-            Hai, saya <strong>Bimo Narmada Nasution</strong>, Fullstack
-            Developer. Saya menyediakan jasa pembuatan website dengan tampilan
-            modern, aesthetic, dan mobile responsive agar bisnis Anda makin
-            berkembang dan terpercaya.
-          </p>
+          <div class="about-devnarda" aria-label="Tentang DevNarda">
+            <p>
+              DevNarda adalah seorang Fullstack Developer profesional yang
+              berdedikasi untuk menciptakan website modern, aesthetic, dan
+              responsif. Dengan pendekatan yang fleksibel dan fokus pada
+              kebutuhan unik setiap klien, DevNarda berkomitmen memberikan
+              solusi teknologi yang efektif dan inovatif supaya bisnis Anda
+              dapat berkembang maksimal dan pelanggan merasa puas.
+            </p>
+          </div>
           <button class="cta-button" id="orderBtn">Pesan Sekarang</button>
         </div>
         <div class="hero-illustration" aria-hidden="true">
@@ -658,7 +672,7 @@
           <li class="testimonial-item" tabindex="0">
             <p class="testimonial-content">
               "CV Abyzain Jaya Teknika kini memiliki website yang modern dan
-              responsif, berkat jasa Bimo dengan hasil memuaskan."
+              responsif, berkat jasa DevNarda dengan hasil memuaskan."
             </p>
             <footer class="testimonial-author">
               – CV Abyzain Jaya Teknika
@@ -682,7 +696,7 @@
             opacity: 0.75;
           "
         >
-          Testimoni terpercaya dari klien-klien saya yang puas dengan jasa saya.
+          Testimoni terpercaya dari klien-klien yang puas dengan jasa DevNarda.
         </p>
       </section>
 
@@ -733,24 +747,21 @@
         </ol>
       </section>
 
-      <section
-        class="contact-section"
-        aria-label="Hubungi Admin dan Agent via WhatsApp"
-      >
-        <h2>Hubungi Admin & Agent</h2>
+      <section class="contact-section" aria-label="Hubungi Admin via WhatsApp">
+        <h2>Hubungi Admin</h2>
         <article
           class="contact-card"
           tabindex="0"
           role="region"
-          aria-label="Hubungi Admin via WhatsApp"
+          aria-label="Hubungi Admin 1 via WhatsApp"
         >
-          <h3>Admin</h3>
+          <h3>Admin 1</h3>
           <a
             href="https://wa.me/628999116665"
             target="_blank"
             rel="noopener noreferrer"
             class="contact-whatsapp"
-            aria-label="Hubungi Admin via WhatsApp"
+            aria-label="Hubungi Admin 1 via WhatsApp"
           >
             <svg
               viewBox="0 0 24 24"
@@ -770,7 +781,7 @@
           class="contact-card"
           tabindex="0"
           role="region"
-          aria-label="Hubungi Admin via WhatsApp"
+          aria-label="Hubungi Admin 2 via WhatsApp"
         >
           <h3>Admin 2</h3>
           <a
@@ -778,7 +789,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="contact-whatsapp"
-            aria-label="Hubungi Agent via WhatsApp"
+            aria-label="Hubungi Admin 2 via WhatsApp"
           >
             <svg
               viewBox="0 0 24 24"
@@ -798,7 +809,7 @@
           class="contact-card"
           tabindex="0"
           role="region"
-          aria-label="Hubungi Admin via WhatsApp"
+          aria-label="Hubungi Admin 3 via WhatsApp"
         >
           <h3>Admin 3</h3>
           <a
@@ -806,7 +817,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="contact-whatsapp"
-            aria-label="Hubungi Agent via WhatsApp"
+            aria-label="Hubungi Admin 3 via WhatsApp"
           >
             <svg
               viewBox="0 0 24 24"
@@ -826,9 +837,9 @@
     </main>
 
     <footer>
-      &copy; 2025 Bimo Narmada Nasution &nbsp;&bull;&nbsp;
+      &copy; 2025 &gt;_DevNarda &nbsp;&bull;&nbsp;
       <a
-        href="https://wa.me/6289663164143"
+        href="https://wa.me/628999116665"
         target="_blank"
         rel="noopener noreferrer"
         style="color: #cbd5e1; text-decoration: underline"
@@ -838,7 +849,7 @@
 
     <!-- Floating WhatsApp Button -->
     <a
-      href="https://wa.me/6289663164143"
+      href="https://wa.me/628999116665"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Hubungi via WhatsApp"
@@ -873,9 +884,9 @@
         }
       });
 
-      // "Pesan Sekarang" button action opens WhatsApp link in new tab
+      // "Pesan Sekarang" button action opens WhatsApp link in new tab (admin 1 default)
       document.getElementById("orderBtn").addEventListener("click", () => {
-        window.open("https://wa.me/6289663164143", "_blank");
+        window.open("https://wa.me/628999116665", "_blank");
       });
     </script>
   </body>
