@@ -3,7 +3,7 @@
 Welcome to my personal website repository. This site showcases my work, projects, and a bit about me.
 
 ## 🌐 Live Site
-Visit: [bimaadamrin.my.id](https://bimaadamrin.my.id)
+Visit: [bimaadamrin.my.id](https://bimaadam.fun/)
 
 ## ✨ Features
 - Portfolio of my projects
@@ -17,7 +17,7 @@ Visit: [bimaadamrin.my.id](https://bimaadamrin.my.id)
 - Just Kidding I Use HTML 🗿
 
 ## 📬 Contact
-Feel free to reach out via my [contact form](https://bimaadamrin.my.id/myprofile/index.html).
+Feel free to reach out via my [contact form](https://bimaadam.fun/contact/).
 
 ---
 
