@@ -22,6 +22,25 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #4F46E5; /* indigo-600 */
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #4338CA; /* indigo-700 */
+}
+
         
         body {
             line-height: 1.6;
@@ -352,7 +371,9 @@
 <body>
     <header>
         <div class="container">
+            <a href="https://bimafreelance.site">
             <h1><i class="fas fa-code"></i>BimaFreelance.Site</h1>
+</a>
             <nav>
                 <ul>
                     <li><a href="#harga"><i class="fas fa-tags"></i> Harga</a></li>
@@ -371,55 +392,65 @@
     </section>
 
     <section id="harga" class="pricing">
-        <h2>Paket Harga Jasa Coding</h2>
-        <div class="container">
-            <div class="card">
-                <h3><i class="fab fa-php"></i> PHP Native</h3>
-                <ul>
-                    <li>CRUD (Transaksi, Jurnal, Buku Besar)</li>
-                    <li>Sistem Login/Register</li>
-                    <li>Ekspor Laporan PDF</li>
-                    <li>Visualisasi Data Chart.js</li>
-                    <li>Template Admin Sederhana</li>
-                    <li>Sistem Management Cashflow</li>
-                </ul>
-                <p class="price">Rp 800k - 1,2 juta</p>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-fire"></i> CodeIgniter 4</h3>
-                <ul>
-                    <li>Struktur MVC yang rapi</li>
-                    <li>CRUD lengkap dengan validasi</li>
-                    <li>Sistem Auth session-based</li>
-                    <li>Ekspor PDF & Excel</li>
-                    <li>Dashboard Admin</li>
-                </ul>
-                <p class="price">Rp 950k - 1,5 juta</p>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-bolt"></i> Slim Framework</h3>
-                <ul>
-                    <li>API Backend yang ringan</li>
-                    <li>CRUD dengan PDO/MySQL</li>
-                    <li>Autentikasi JWT</li>
-                    <li>Dokumentasi API</li>
-                    <li>Integrasi Frontend</li>
-                </ul>
-                <p class="price">Rp 750k - 950k</p>
-            </div>
-            <div class="card">
-                <h3><i class="fab fa-laravel"></i> Laravel</h3>
-                <ul>
-                    <li>Struktur MVC lengkap</li>
-                    <li>Eloquent ORM</li>
-                    <li>Sistem Auth lengkap</li>
-                    <li>Dashboard AdminLTE</li>
-                    <li>Ekspor PDF & Excel</li>
-                </ul>
-                <p class="price">Rp 1,2 juta - 1,8 juta</p>
-            </div>
+    <h2>Paket Harga Jasa Coding</h2>
+    <div class="container">
+
+        <div class="card">
+            <h3><i class="fab fa-php"></i> PHP Native</h3>
+            <ul>
+                <li>CRUD (Transaksi, Jurnal, Buku Besar)</li>
+                <li>Sistem Login/Register</li>
+                <li>Ekspor Laporan PDF</li>
+                <li>Visualisasi Data Chart.js</li>
+                <li>Template Admin Sederhana</li>
+                <li>Sistem Management Cashflow</li>
+                <li>Custom Request dan Fitur Tambah Komisi</li>
+            </ul>
+            <p class="price">Rp 800k - 1,2 juta</p>
+            <a href="https://tally.so/r/mD6yqp" class="btn btn-primary" target="_blank">Pesan Sekarang</a>
         </div>
-    </section>
+
+        <div class="card">
+            <h3><i class="fas fa-fire"></i> CodeIgniter 4</h3>
+            <ul>
+                <li>Struktur MVC yang rapi</li>
+                <li>CRUD lengkap dengan validasi</li>
+                <li>Sistem Auth session-based</li>
+                <li>Ekspor PDF & Excel</li>
+                <li>Dashboard Admin</li>
+            </ul>
+            <p class="price">Rp 950k - 1,5 juta</p>
+            <a href="https://tally.so/r/mD6yqp" class="btn btn-primary" target="_blank">Pesan Sekarang</a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-bolt"></i> Slim Framework</h3>
+            <ul>
+                <li>API Backend yang ringan</li>
+                <li>CRUD dengan PDO/MySQL</li>
+                <li>Autentikasi JWT</li>
+                <li>Dokumentasi API</li>
+                <li>Integrasi Frontend</li>
+            </ul>
+            <p class="price">Rp 750k - 950k</p>
+            <a href="https://tally.so/r/mD6yqp" class="btn btn-primary" target="_blank">Pesan Sekarang</a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fab fa-laravel"></i> Laravel</h3>
+            <ul>
+                <li>Struktur MVC lengkap</li>
+                <li>Eloquent ORM</li>
+                <li>Sistem Auth lengkap</li>
+                <li>Dashboard AdminLTE</li>
+                <li>Ekspor PDF & Excel</li>
+            </ul>
+            <p class="price">Rp 1,2 juta - 1,8 juta</p>
+            <a href="https://tally.so/r/mD6yqp" class="btn btn-primary" target="_blank">Pesan Sekarang</a>
+        </div>
+
+    </div>
+</section>
 
     <section class="features">
         <div class="container">
