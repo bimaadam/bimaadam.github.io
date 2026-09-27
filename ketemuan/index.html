@@ -4,450 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perjalanan Bima ke Lombok</title>
+    <meta name="description" content="Kisah perjalanan Bima dari Solo ke Lombok bertemu Ririn, kekasih LDR tercinta.">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0e0e10;
-            --surface: #16161a;
-            --surface2: #1e1e24;
-            --border: rgba(255,255,255,0.07);
-            --text: #e8e8f0;
-            --muted: #6e6e82;
-            --accent: #e07b6a;
-            --accent2: #7fb3c8;
-            --green: #7ecb8f;
-            --radius: 16px;
-            --radius-sm: 8px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 300;
-            line-height: 1.75;
-            overflow-x: hidden;
-        }
-
-        /* ── NOISE OVERLAY ── */
-        body::after {
-            content: "";
-            position: fixed; inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.4;
-        }
-
-        /* ── PROGRESS BAR ── */
-        #reading-progress {
-            position: fixed; top: 0; left: 0;
-            height: 2px; width: 0%;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            z-index: 1000;
-            transition: width 0.1s linear;
-        }
-
-        /* ── NAV ── */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            height: 56px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 clamp(16px, 5vw, 48px);
-            background: rgba(14,14,16,0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-        }
-
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            color: var(--text);
-            letter-spacing: 0.05em;
-        }
-
-        .nav-links {
-            display: flex; gap: 8px;
-        }
-
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.78rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 6px 12px;
-            border-radius: 100px;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-            background: var(--surface2);
-        }
-
-        @media (max-width: 500px) { .nav-links { display: none; } }
-
-        /* ── HERO ── */
-        #hero {
-            min-height: 100svh;
-            display: flex; flex-direction: column;
-            justify-content: flex-end;
-            padding: clamp(80px, 12vw, 140px) clamp(20px, 6vw, 72px) clamp(48px, 8vw, 80px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute; inset: 0;
-            background: url('edited.jpg') center/cover no-repeat;
-            transform: scale(1.06);
-            transition: transform 0.1s linear;
-        }
-
-        .hero-bg::after {
-            content: "";
-            position: absolute; inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(14,14,16,0.3) 0%,
-                rgba(14,14,16,0.1) 40%,
-                rgba(14,14,16,0.85) 80%,
-                var(--bg) 100%
-            );
-        }
-
-        .hero-content { position: relative; z-index: 2; max-width: 680px; }
-
-        .hero-tag {
-            display: inline-flex; align-items: center; gap: 6px;
-            font-size: 0.72rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 0.12em;
-            color: var(--accent);
-            background: rgba(224,123,106,0.12);
-            border: 1px solid rgba(224,123,106,0.2);
-            border-radius: 100px;
-            padding: 4px 12px;
-            margin-bottom: 20px;
-            opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.9rem, 5vw, 3.4rem);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.01em;
-            color: var(--text);
-            margin-bottom: 16px;
-            opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
-        }
-
-        .hero-date {
-            color: var(--muted);
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
-            margin-bottom: 28px;
-        }
-
-        .hero-cta {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--green);
-            color: #0e0e10;
-            font-size: 0.85rem; font-weight: 500;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 100px;
-            transition: var(--transition);
-            opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
-            border: none; cursor: pointer;
-        }
-
-        .hero-cta:hover { background: #9adcab; transform: translateY(-2px); }
-
-        /* ── LAYOUT ── */
-        main {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 clamp(20px, 6vw, 40px) 80px;
-        }
-
-        /* ── SECTION ── */
-        .section {
-            margin-top: clamp(56px, 10vw, 96px);
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .section.visible { opacity: 1; transform: translateY(0); }
-
-        .section-label {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 0.7rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 0.14em;
-            color: var(--muted);
-            margin-bottom: 12px;
-        }
-
-        .section-label span {
-            display: inline-block; width: 24px; height: 1px;
-            background: var(--muted);
-        }
-
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.4rem, 3.5vw, 1.9rem);
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 20px;
-            line-height: 1.25;
-        }
-
-        p {
-            color: #b0b0c0;
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            line-height: 1.8;
-            margin-bottom: 16px;
-        }
-
-        strong { color: var(--text); font-weight: 500; }
-
-        /* ── CARD ── */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .card:hover { border-color: rgba(255,255,255,0.13); }
-
-        .card-body { padding: clamp(20px, 5vw, 32px); }
-
-        /* ── MEDIA CARD (text + image side by side) ── */
-        .media-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 0;
-            transition: var(--transition);
-        }
-
-        .media-card:hover { border-color: rgba(255,255,255,0.13); transform: translateY(-2px); }
-
-        .media-card .card-body { padding: clamp(20px, 5vw, 32px); }
-
-        .media-card .card-img {
-            width: clamp(120px, 22vw, 200px);
-            object-fit: cover;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 560px) {
-            .media-card { grid-template-columns: 1fr; }
-            .media-card .card-img { width: 100%; height: 200px; }
-        }
-
-        /* ── MUSIC PLAYER ── */
-        #music-player {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: clamp(20px, 5vw, 32px);
-        }
-
-        .player-track-info {
-            margin-bottom: 20px;
-        }
-
-        .player-title {
-            font-size: 0.95rem; font-weight: 500;
-            color: var(--text);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .player-subtitle {
-            font-size: 0.78rem; color: var(--muted);
-            margin-top: 2px;
-        }
-
-        .player-controls {
-            display: flex; align-items: center; gap: 12px;
-        }
-
-        .btn-play {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: var(--accent);
-            border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            transition: var(--transition);
-            color: white;
-            font-size: 14px;
-        }
-
-        .btn-play:hover { background: #d46a58; transform: scale(1.08); }
-
-        .player-timeline { flex: 1; }
-
-        .seek-track {
-            position: relative; height: 3px;
-            background: var(--surface2);
-            border-radius: 2px;
-            cursor: pointer;
-            margin-bottom: 6px;
-        }
-
-        .seek-fill {
-            position: absolute; left: 0; top: 0; bottom: 0;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            border-radius: 2px;
-            width: 0%;
-            transition: width 0.1s linear;
-            pointer-events: none;
-        }
-
-        .seek-input {
-            position: absolute; inset: -6px 0;
-            opacity: 0; cursor: pointer;
-            width: 100%;
-        }
-
-        .player-times {
-            display: flex; justify-content: space-between;
-            font-size: 0.72rem; color: var(--muted);
-        }
-
-        .volume-wrap {
-            display: flex; align-items: center; gap: 6px;
-            flex-shrink: 0;
-        }
-
-        .volume-wrap button {
-            background: none; border: none; cursor: pointer;
-            color: var(--muted); font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .volume-wrap button:hover { color: var(--text); }
-
-        .vol-slider {
-            width: 64px; cursor: pointer;
-            accent-color: var(--accent);
-        }
-
-        @media (max-width: 400px) { .volume-wrap { display: none; } }
-
-        /* ── QUOTE / CALLOUT ── */
-        .callout {
-            border-left: 2px solid var(--accent);
-            padding: 14px 20px;
-            background: rgba(224,123,106,0.05);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            margin: 20px 0;
-            font-style: italic;
-            color: #c4c4d4;
-            font-size: 0.95rem;
-        }
-
-        /* ── INFO / CTA SECTION ── */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 400px) { .info-grid { grid-template-columns: 1fr; } }
-
-        .info-link {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 16px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.85rem; font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .info-link:hover {
-            background: var(--surface);
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-        }
-
-        .info-link.green { border-color: rgba(126,203,143,0.3); color: var(--green); }
-        .info-link.green:hover { background: rgba(126,203,143,0.08); }
-
-        /* ── TICKET BUTTON ── */
-        .ticket-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 9px 18px;
-            background: var(--green);
-            color: #0e0e10;
-            font-size: 0.82rem; font-weight: 500;
-            text-decoration: none;
-            border-radius: 100px;
-            transition: var(--transition);
-            border: none; cursor: pointer;
-        }
-
-        .ticket-btn:hover { background: #9adcab; }
-
-        /* ── FOOTER ── */
-        footer {
-            border-top: 1px solid var(--border);
-            text-align: center;
-            padding: 32px 20px;
-            color: var(--muted);
-            font-size: 0.82rem;
-        }
-
-        footer span { color: var(--accent); }
-
-        /* ── DIVIDER ── */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0;
-        }
-
-        /* ── ANIMATIONS ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Scripts -->
+    <script src="js/player.js" defer></script>
+    <script src="js/main.js" defer></script>
 </head>
 <body>
 
     <div id="reading-progress"></div>
 
-    <nav>
-        <div class="nav-logo">Bima × Ririn</div>
-        <div class="nav-links">
-            <a href="#journey">Perjalanan</a>
-            <a href="#meeting">Pertemuan</a>
-            <a href="#info">Info</a>
-        </div>
-    </nav>
+    <header>
+        <nav>
+            <a href="#hero" class="nav-logo">Bima × Ririn</a>
+            <div class="nav-links">
+                <a href="#journey">Perjalanan</a>
+                <a href="#meeting">Pertemuan</a>
+                <a href="#masalah-2026">Problem 2026</a>
+                <a href="#info">Info</a>
+            </div>
+        </nav>
+    </header>
 
     <!-- HERO -->
     <section id="hero">
@@ -456,7 +41,7 @@
             <div class="hero-tag">✦ Cerita Perjalanan</div>
             <h1>Perjalanan Solo ke Lombok: Kisah Bima Bertemu Sang Kekasih LDR</h1>
             <p class="hero-date">21 September 2024 – 30 September 2024</p>
-            <a href="/ketemuan/tiketkapal/" target="_blank" class="hero-cta">
+            <a href="tiketkapal/" class="hero-cta">
                 🎟 Info Tiket Kereta & Kapal
             </a>
         </div>
@@ -482,11 +67,11 @@
                     <div class="player-subtitle">T10MO • Soundtrack Perjalanan</div>
                 </div>
                 <div class="player-controls">
-                    <button class="btn-play" id="playBtn" aria-label="Play/Pause">▶</button>
+                    <button class="btn-play" id="playBtn" aria-label="Putar lagu">▶</button>
                     <div class="player-timeline">
                         <div class="seek-track">
                             <div class="seek-fill" id="seekFill"></div>
-                            <input type="range" class="seek-input" id="seekInput" max="100" value="0">
+                            <input type="range" class="seek-input" id="seekInput" min="0" max="100" value="0" aria-label="Timeline lagu">
                         </div>
                         <div class="player-times">
                             <span id="currentTime">0:00</span>
@@ -494,12 +79,12 @@
                         </div>
                     </div>
                     <div class="volume-wrap">
-                        <button id="volBtn" aria-label="Mute">🔊</button>
-                        <input type="range" class="vol-slider" id="volSlider" max="1" value="1" step="0.01">
+                        <button id="volBtn" aria-label="Mute / Unmute">🔊</button>
+                        <input type="range" class="vol-slider" id="volSlider" min="0" max="1" value="1" step="0.01" aria-label="Volume slider">
                     </div>
                 </div>
             </div>
-            <audio id="audio" src="SUMMER HITS 2017 Mashup 60 Songs T10MO.mp3"></audio>
+            <audio id="audio" src="SUMMER HITS 2017 Mashup 60 Songs T10MO.mp3" preload="metadata"></audio>
         </section>
 
         <!-- PERJALANAN -->
@@ -510,7 +95,7 @@
                 <div class="card-body">
                     <p>Saya memulai perjalanan dari Solo, Jawa Tengah menaiki kereta api Sancaka dengan relasi Solo Balapan - Surabaya Gubeng dan dilanjutkan dengan kapal laut DLU Ferry KM. KIRANA VII dari Pelabuhan Tj. Perak Surabaya menuju Pelabuhan Lembar, Lombok Barat. Perjalanan terasa sangat panjang menempuh waktu hingga 1 Hari 6 jam, namun semua rasa lelah hilang saat akhirnya saya menginjakkan kaki di Lombok. Pikiran saya cuma satu: akhirnya bisa ketemu Ririn calon istri saya.</p>
                 </div>
-                <img src="linimasaslolmbar.jpg" alt="Linimasa perjalanan Solo–Lombok" class="card-img">
+                <img src="linimasaslolmbar.jpg" alt="Linimasa rute perjalanan Solo ke Lembar Lombok" class="card-img" loading="lazy" decoding="async">
             </div>
         </section>
 
@@ -522,12 +107,12 @@
                 <div class="card-body">
                     <p>Setelah sampai di Lombok, saya dan Ririn akhirnya bertemu. Momen ini sangat emosional. Melihat Ririn secara langsung untuk pertama kalinya adalah perasaan yang sulit dijelaskan dengan kata-kata. Kami menghabiskan waktu bersama, berbagi cerita, dan menikmati keindahan Lombok. Sebuah pertemuan yang akan selalu saya ingat. Saya dan Ririn sangat berbahagia biasanya VC telp terus menerus dan akhirnya bisa ketemu langsung, saya ga nyangka bisa ketemu, ngerasain hati saya penuh dengan darah cinta yang membanjiri hati, nangis bisa melihat sang kekasih calon istri saya.</p>
                 </div>
-                <img src="selfie-time-1727498639965.jpg.jpg" alt="Foto bertemu Ririn" class="card-img">
+                <img src="selfie-time-1727498639965.jpg.jpg" alt="Momen selfie berdua bersama Ririn di Lombok" class="card-img" loading="lazy" decoding="async">
             </div>
         </section>
 
         <!-- MOMEN MENYEDIHKAN -->
-        <section class="section">
+        <section class="section" id="sad-incident">
             <div class="section-label"><span></span>Momen Sedih</div>
             <h2>Momen Menyedihkan</h2>
             <div class="media-card">
@@ -535,14 +120,14 @@
                     <p>Pada hari Kamis tanggal 26 September saya sudah berencana untuk pulang ke Surabaya tapi berkata lain ada musibah menimpa saya, hp saya mati total ketika saya berlibur di Pantai Klui, Lombok. Besoknya saya cari konter hp akhirnya ketemu nama konter hp nya KK Teknologi, oke disitu saya bilang ke teknisi nya:</p>
                     <div class="callout">"Mas ini tolong banget saya bukan orang sini, tetapi saya orang Jawa Tengah, tolong banget ini hp saya kemarin nyemplung di Pantai, dan uang-uang saya di hp semua, dan sekarang saya ga pegang uang cash"</div>
                     <p>Kata teknisi nya: <strong>"kita usahakan ya mas semoga bisa di benerin nanti konfirmasi soal biaya, mas nanti bisa kesini lagi jam 5 sore."</strong> Tak lama kemudian teknisi berkata: <strong>"mohon maaf mas ini yang kenak IC power, dan saya tidak ada alatnya."</strong> Dan disitu saya bingung mau gimana lagi tidak pegang uang cash dan saya ga makan seharian.</p>
-                    <a href="#info" class="ticket-btn" style="margin-top:8px; display:inline-flex;">Info Detail →</a>
+                    <a href="#info" class="ticket-btn">Info Detail →</a>
                 </div>
-                <img src="rinbim.png" alt="Foto Bima dan Ririn" class="card-img">
+                <img src="rinbim.png" alt="Foto kenangan Bima dan Ririn" class="card-img" loading="lazy" decoding="async">
             </div>
         </section>
 
         <!-- PULANG -->
-        <section class="section">
+        <section class="section" id="return-trip">
             <div class="section-label"><span></span>Kepulangan</div>
             <h2>Momen Menyedihkan Saya Pulang Ke Jawa</h2>
             <div class="media-card">
@@ -550,9 +135,25 @@
                     <p>Saya ga bisa berkata-kata disini, saya merasa sedih sekali meninggalkan calon istri saya Ririn. Hari Sabtu Tanggal 28 September 2024 kita berdua berencana pergi liburan untuk terakhir kalinya. Kita berencana pergi ke Mall Lombok Epicentrum untuk berfoto studio karena foto-foto yang ada di hp saya Google Pixel 5 belum saya backup.</p>
                     <p>Setelah itu saya dan calon istri saya Ririn beranjak untuk makan-makan di Mall tersebut dan memilih untuk jajan beli KFC — saya baru pertama kalinya bisa beli KFC bareng calon istri saya Ririn. Beberapa jam kemudian kita berdua berencana ke Pantai Klui, disana kita berdua makan-makan dan bercerita melihat pemandangan dengan sang kekasih calon istri saya yang paling cantik dan menawan.</p>
                     <p>Momen paling menyedihkan terjadi waktu sudah menunjukan pukul 17.00 WITA, saya menangis karena pergi ke Jawa. Saya di antar calon istri saya Ririn ke Lembar sekitar 1 jam perjalanan. Ketika sudah sampai di Lembar saya menangis tidak berhenti, saya khawatir sama Ririn karena jauh dan dia tidak membawa uang cash, dan waktu sudah malam. Campur aduk rasanya, ketika menjelang Maghrib tiba saya berangkat ke Pelabuhan Lembar dan menaiki Kapal KM DLN OASIS.</p>
-                    <a href="#info" class="ticket-btn" style="margin-top:8px; display:inline-flex;">Info Detail →</a>
+                    <a href="#info" class="ticket-btn">Info Detail →</a>
                 </div>
-                <img src="IMG_20240928_132542.jpg" alt="Foto perjalanan pulang" class="card-img">
+                <img src="IMG_20240928_132542.jpg" alt="Foto kenangan perjalanan pulang ke Jawa" class="card-img" loading="lazy" decoding="async">
+            </div>
+        </section>
+
+        <!-- PROBLEM 2026 -->
+        <section class="section" id="masalah-2026">
+            <div class="section-label"><span></span>Catatan 2026</div>
+            <h2>Forensic Relationship Analysis (2026)</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>Dinamika perjalanan hubungan kami berlanjut hingga tahun 2026 dengan berbagai ujian trust, luka yang belum tuntas, dan tantangan komunikasi yang kompleks. Analisis mendalam berbasis fakta, kronologi chat notebook, serta evaluasi pola interaksi telah didokumentasikan secara terpisah.</p>
+                    <div style="margin-top: 20px;">
+                        <a href="analisis-2026/" class="hero-cta" style="display:inline-flex;">
+                            📄 Buka Forensic Relationship Analysis (Jan – Sep 2026) →
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -565,7 +166,7 @@
                 <a href="mailto:bimaadamrailfans35@gmail.com" class="info-link green">
                     ✉ Gmail
                 </a>
-                <a href="https://wa.me/+6289663164143/" target="_blank" class="info-link green">
+                <a href="https://wa.me/+6289663164143/" target="_blank" rel="noopener noreferrer" class="info-link green">
                     💬 WhatsApp
                 </a>
             </div>
@@ -577,84 +178,5 @@
         <p>© 2024 <span>Bima Adam</span> & <span>Ririn Setiawati</span></p>
     </footer>
 
-    <script>
-        // ── Reading Progress ──
-        const progress = document.getElementById('reading-progress');
-        window.addEventListener('scroll', () => {
-            const total = document.body.scrollHeight - window.innerHeight;
-            progress.style.width = (window.scrollY / total * 100) + '%';
-        });
-
-        // ── Parallax hero bg ──
-        const heroBg = document.getElementById('heroBg');
-        window.addEventListener('scroll', () => {
-            heroBg.style.transform = `scale(1.06) translateY(${window.scrollY * 0.18}px)`;
-        }, { passive: true });
-
-        // ── Intersection Observer for section reveals ──
-        const sections = document.querySelectorAll('.section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    observer.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.12 });
-        sections.forEach(s => observer.observe(s));
-
-        // ── Music Player ──
-        const audio       = document.getElementById('audio');
-        const playBtn     = document.getElementById('playBtn');
-        const seekInput   = document.getElementById('seekInput');
-        const seekFill    = document.getElementById('seekFill');
-        const currentTime = document.getElementById('currentTime');
-        const duration    = document.getElementById('duration');
-        const volSlider   = document.getElementById('volSlider');
-        const volBtn      = document.getElementById('volBtn');
-
-        let playing = false;
-
-        const fmt = t => {
-            if (isNaN(t)) return '0:00';
-            const m = Math.floor(t / 60);
-            const s = Math.floor(t % 60);
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
-        };
-
-        playBtn.addEventListener('click', () => {
-            if (playing) { audio.pause(); playBtn.textContent = '▶'; }
-            else         { audio.play();  playBtn.textContent = '⏸'; }
-            playing = !playing;
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            const pct = (audio.currentTime / audio.duration) * 100 || 0;
-            seekInput.value   = pct;
-            seekFill.style.width = pct + '%';
-            currentTime.textContent = fmt(audio.currentTime);
-            duration.textContent    = fmt(audio.duration);
-        });
-
-        seekInput.addEventListener('input', () => {
-            audio.currentTime = (seekInput.value / 100) * audio.duration;
-            seekFill.style.width = seekInput.value + '%';
-        });
-
-        volSlider.addEventListener('input', () => {
-            audio.volume = volSlider.value;
-            volBtn.textContent = audio.volume === 0 ? '🔇' : '🔊';
-        });
-
-        volBtn.addEventListener('click', () => {
-            audio.muted = !audio.muted;
-            volBtn.textContent = audio.muted ? '🔇' : '🔊';
-        });
-
-        audio.addEventListener('ended', () => {
-            playing = false;
-            playBtn.textContent = '▶';
-        });
-    </script>
 </body>
 </html>
